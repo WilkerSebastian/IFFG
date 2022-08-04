@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IFFG</title>
+    <link rel="stylesheet" href="/xcss/xterm.css" />
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/bscss/bootstrap.min.css">
+
+</head>
+
+<body>
+
+    <canvas id="canvas"></canvas>
+
+    <section id="terminal">
+
+        <div class="input-group d-flex flex-column w-100">
+            <textarea class="form-control w-100 text-light bg-dark bg-opacity-50" rows="5" id="response" name="text"
+                style="resize: none;" disabled></textarea>
+
+            <input type="text" class="form-control text-info w-100 bg-dark bg-opacity-75" id="request">
+
+        </div>
+
+
+    </section>
+    <section id="config">
+
+        <div class="input-group d-flex flex-column mx-auto mw-50 pt-5">
+
+            <label for="radio" class="form-label mx-auto">volume</label>
+            <input type="range" class="form-range mx-auto w-25" min="0" max="100" id="radio">
+
+        </div>
+        <div class="col-2 mx-auto pt-5">
+
+            <button class="btn btn-success text-warning mx-35 p-3" onclick="configuracoes.visible(false)">VOLTAR</button>
+
+        </div>
+
+    </section>
+    <section id="menu">
+
+        <div class="mx-40 d-flex">
+
+            <h1 class="text-success ts-240 font-str">IF</h1>
+            <h1 class="text-danger ts-240 font-str">FG</h1>
+
+        </div>
+        <div class="pt-5 mw-100 mx-auto">
+
+            <div class="col-1 mx-auto pt-5">
+
+                <button class="btn btn-success text-warning p-3" onclick="loop()">JOGAR</button>
+
+            </div>
+            <div class="col-2 mx-auto pt-5">
+
+                <button class="btn btn-success text-warning p-3" onclick="configuracoes.visible(true)">CONFIGURAÇÕES</button>
+
+            </div>
+            <div class="col-3 mx-45 pt-5">
+
+                <a class="btn btn-success text-warning p-3" href="/">VOLTAR</a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <script src="/public/js/constante.js"></script>
+    <script src="/public/js/Colisao.js"></script>
+    <script src="/public/js/Sprite.js"></script>
+    <script src="/public/js/Player.js"></script>
+    <script src="/public/js/Camera.js"></script>
+    <script src="/public/js/renders.js"></script>
+    <script src="/public/js/Terminal.js"></script>
+    <script src="/public/js/Configuracoes.js"></script>
+    <script src="/public/js/main.js"></script>
+
+    <script src="/popperjs/popper.min.js"></script>
+    <script src="/bsjs/bootstrap.min.js"></script>
+
+</body>
+
+</html>
