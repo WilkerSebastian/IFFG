@@ -27,50 +27,112 @@
 
 
     </section>
-    <section id="config">
+    <main>
+        <section id="selecao-personagem">
 
-        <div class="input-group d-flex flex-column mx-auto mw-50 pt-5">
+            <div class="caixa-selecao">
 
-            <label for="radio" class="form-label mx-auto">volume</label>
-            <input type="range" class="form-range mx-auto w-25" min="0" max="100" id="radio">
+                <div class="versus">
 
-        </div>
-        <div class="col-2 mx-auto pt-5">
+                    <p id="personagem-1"></p>
+                    <img id="sec-1">
 
-            <button class="btn btn-success text-warning mx-35 p-3" onclick="configuracoes.visible(false)">VOLTAR</button>
+                    <p id="versus font-str">VS</p>
 
-        </div>
+                    <p id="personagem-2"></p>
+                    <img id="sec-2">
 
-    </section>
-    <section id="menu">
+                </div>
+                <div class="grid">
 
-        <div class="mx-40 d-flex">
+                    <div class="grids">
 
-            <h1 class="text-success ts-240 font-str">IF</h1>
-            <h1 class="text-danger ts-240 font-str">FG</h1>
+                        <img src="/public/img/lincoln/miniatura.png"
+                            onclick="configuracoes.clickGrid(this , 0)"
+                            onmouseover="configuracoes.setGrid(this  , 0)"
+                            onmouseout="configuracoes.overGrid(this)"
+                        >
+                        <img src="/public/img/interrogacao.png" 
+                        onclick="configuracoes.clickGrid(this , 1)"
+                        onmouseover="configuracoes.setGrid(this  , 1)"
+                        onmouseout="configuracoes.overGrid(this)"
+                    >
+                        <img src="/public/img/interrogacao.png"
+                        onclick="configuracoes.clickGrid(this , 2)"
+                        onmouseover="configuracoes.setGrid(this  , 2)"
+                        onmouseout="configuracoes.overGrid(this)"
+                    >
+                        <img src="/public/img/interrogacao.png" 
+                        onclick="configuracoes.clickGrid(this , 3)"
+                        onmouseover="configuracoes.setGrid(this , 3)"
+                        onmouseout="configuracoes.overGrid(this)"
+                    >
+                        <img src="/public/img/interrogacao.png" 
+                        onclick="configuracoes.clickGrid(this , 4)"
+                        onmouseover="configuracoes.setGrid(this , 4)"
+                        onmouseout="configuracoes.overGrid(this)"
+                    >
+                        <img src="/public/img/interrogacao.png" 
+                        onclick="configuracoes.clickGrid(this , 5)"
+                        onmouseover="configuracoes.setGrid(this , 5)"
+                        onmouseout="configuracoes.overGrid(this)"
+                    >
 
-        </div>
-        <div class="pt-5 mw-100 mx-auto">
+                    </div>
 
-            <div class="col-1 mx-auto pt-5">
+                </div>
 
-                <button class="btn btn-success text-warning p-3" onclick="loop()">JOGAR</button>
+            </div>
+
+        </section>
+        <section id="config">
+
+            <div class="input-group d-flex flex-column mx-auto mw-50 pt-5">
+
+                <label for="radio" class="form-label mx-auto">volume</label>
+                <input type="range" class="form-range mx-auto w-25" min="0" max="100" id="radio">
 
             </div>
             <div class="col-2 mx-auto pt-5">
 
-                <button class="btn btn-success text-warning p-3" onclick="configuracoes.visible(true)">CONFIGURAÇÕES</button>
-
-            </div>
-            <div class="col-3 mx-45 pt-5">
-
-                <a class="btn btn-success text-warning p-3" href="/">VOLTAR</a>
+                <button class="btn btn-success text-warning mx-35 p-3"
+                    onclick="configuracoes.visible(false)">VOLTAR</button>
 
             </div>
 
-        </div>
+        </section>
+        <section id="menu">
 
-    </section>
+            <div class="mx-40 d-flex">
+
+                <h1 class="text-success ts-240 font-str">IF</h1>
+                <h1 class="text-danger ts-240 font-str">FG</h1>
+
+            </div>
+            <div class="pt-5 mw-100 mx-auto">
+
+                <div class="col-1 mx-auto pt-5">
+
+                    <button class="btn btn-success text-warning p-3"
+                        onclick="configuracoes.selecaoVisible(true)">JOGAR</button>
+
+                </div>
+                <div class="col-2 mx-auto pt-5">
+
+                    <button class="btn btn-success text-warning p-3"
+                        onclick="configuracoes.visible(true)">CONFIGURAÇÕES</button>
+
+                </div>
+                <div class="col-3 mx-45 pt-5">
+
+                    <a class="btn btn-success text-warning p-3" href="/">VOLTAR</a>
+
+                </div>
+
+            </div>
+
+        </section>
+    </main>
 
     <script src="/public/js/constante.js"></script>
     <script src="/public/js/Colisao.js"></script>

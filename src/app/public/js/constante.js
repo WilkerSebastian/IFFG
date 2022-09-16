@@ -16,6 +16,7 @@ let maxWidth = LARGURA;
 let maxHeight = ALTURA;
 let round = 1;
 let iniciou = true;
+const nomes = ["ferraz", "lincoln"];
 const keys = {
     a: {
         pressed: false

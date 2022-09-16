@@ -21,6 +21,8 @@ let maxHeight = ALTURA
 let round = 1
 let iniciou = true
 
+const nomes = ["lincoln" , "ferraz"]
+
 const keys = {
     a: {
       pressed: false
