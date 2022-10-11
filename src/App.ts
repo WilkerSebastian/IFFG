@@ -25,8 +25,7 @@ export default class App {
 
         }))
 
-        this.server.use('/xcss' , express.static('./node_modules/xterm/css'))
-        this.server.use('/xjs' , express.static('./node_modules/xterm/lib'))
+        this.server.use('/jquery' , express.static('./node_modules/jquery/dist'))
         this.server.use('/bsicon' , express.static('./node_modules/bootstrap-icons/font'))
         this.server.use('/bscss', express.static('./node_modules/bootstrap/dist/css'));
         this.server.use('/bsjs', express.static('./node_modules/bootstrap/dist/js'));
