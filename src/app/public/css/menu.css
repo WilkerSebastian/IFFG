@@ -1,0 +1,62 @@
+/*body {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}*/
+
+body {
+  background-image: url("/public/img/plano_menu.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  /*--bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;*/
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@font-face {
+  font-family: street;
+  src: url("/public/font/street.ttf");
+}
+
+.titulo {
+  font-size: 100px;
+  color: white;
+  margin-top: 50px;
+  font-family: street;
+}
+
+.ai {
+  color: #32a041;
+}
+
+.pq {
+  color: #c8191e;
+}
+.botao1 {
+  margin-top: 25px;
+  margin-left: 50px;
+}
+
+.botao2 {
+  margin-top: 25px;
+  margin-left: 50px;
+}
+
+.botao3 {
+  margin-top: 25px;
+  margin-left: 50px;
+}
+
+.volume {
+  color: black;
+  font-size: 25px;
+  font-weight: bold;
+}
