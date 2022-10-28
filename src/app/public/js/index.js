@@ -1,8 +1,8 @@
-function changeText(element, text) {
+/*function changeText(element, text) {
   document.querySelector(element).innerHTML = text;
 }
 
-function changeImage() /*Mano Wilker coloca o código de mudar as imagens que aparecem à esquerda da tela quando clicar em uma imagem de personagem da grade, o que eu fiz não dá certo e eu não sou muito bom com javascript*/ {
+function changeImage() {
   if (
     document.getElementById("imgClickAndChange").src ==
     "/public/img/flipferrazmini-removebg-preview.png"
@@ -10,4 +10,20 @@ function changeImage() /*Mano Wilker coloca o código de mudar as imagens que ap
     document.getElementById("conteudoItself").src =
       "/public/img/ferrazgrademaior.png";
   }
+}
+
+*/
+
+const mh = [...document.querySelectorAll(".mh")];
+
+mh.forEach((h) => (h.style.height = `${window.innerHeight}px`));
+
+function changeText(element, text) {
+  document.querySelector(element).innerHTML = text;
+}
+
+function changeImage(arquivo, id) {
+  const imagem = document.getElementById(id);
+
+  imagem.src = `/public/img/${arquivo}`;
 }

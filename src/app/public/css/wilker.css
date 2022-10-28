@@ -59,6 +59,14 @@
   color: #c8191e;
 }
 
+@font-face {
+  font-family: street;
+  src: url("/public/font/street.ttf");
+}
+.sobrejogo {
+  font-family: street;
+}
+
 .ajuda {
   max-width: 50px;
   max-height: 37px;
@@ -77,6 +85,16 @@
 }
 
 .bombado {
+  color: #32a041;
+  font-weight: bold;
+}
+
+.vampira {
+  color: #32a041;
+  font-weight: bold;
+}
+
+.woman {
   color: #32a041;
   font-weight: bold;
 }
@@ -112,15 +130,15 @@ footer {
   transform: scale(1.5);
 }
 */
-.col{
- transition: transform .2s;
+.col {
+  transition: transform 0.2s;
 }
 
-.col:hover{
- transform: scale(1.1);
+.col:hover {
+  transform: scale(1.1);
 }
 
-.butano{
+.butano {
   text-align: center;
 }
 /*#cartao {

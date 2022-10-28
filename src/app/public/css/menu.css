@@ -35,10 +35,12 @@ body {
 
 .ai {
   color: #32a041;
+  font-family: street;
 }
 
 .pq {
   color: #c8191e;
+  font-family: street;
 }
 .botao1 {
   margin-top: 25px;

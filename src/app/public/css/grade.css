@@ -1,11 +1,9 @@
 .grade {
-  margin-top: 50px;
-  margin-left: 500px;
-  margin-bottom: 100px;
+  position: fixed;
+  bottom: 0;
   display: grid;
-  grid-template-columns: 120px 120px;
-  grid-template-rows: 120px 120px 120px 120px 120px 120px;
-  justify-content: center;
+  grid-template-columns: 120px 120px 120px;
+  grid-template-rows: 120px 120px;
 }
 
 .box {
@@ -23,4 +21,25 @@
 
 #boxlindos:hover {
   transform: scale(1.1);
+}
+
+.vs {
+  font-size: 15rem;
+  font-family: street;
+  margin-bottom: 150px;
+}
+
+.personagem {
+  margin-bottom: 150px;
+}
+
+.personagem2 {
+  margin-bottom: 150px;
+}
+
+.v {
+  color: #32a041;
+}
+.s {
+  color: #c8191e;
 }
