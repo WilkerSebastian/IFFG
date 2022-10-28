@@ -5,7 +5,7 @@ import JogoController from "./app/controller/JogoController";
 const router = Router()
 
 router.get("/" , IndexController.index)
-
+router.get("/nciolaspapa" , )
 router.get("/iffg" , JogoController.jogo)
 
 export default router
