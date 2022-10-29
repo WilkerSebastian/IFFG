@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,18 +8,46 @@
     <title>IFFG</title>
 
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
 
 </head>
+
 <body>
 
-    <canvas id="canvas"></canvas>
+    <section id="load" class="w-win">
 
-    <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <div class="d-flex mx-auto">
+
+            <p class="if-green ms-auto">IF</p>
+            <p class="fg-red me-auto">FG</p>
+
+        </div>
+        <div class="w-50 mx-auto">
+        <div class="progress">
+
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" id="barra"
+                role="progressbar" aria-label="Animated striped example" aria-valuenow="0" aria-valuemin="0"
+                aria-valuemax="100"></div>
+
+        </div>
+        </div>
+
+    </section>
+    <section id="onload">
+
+        <p>teste</p>
+        <canvas id="canvas"></canvas>
+
+    </section>
+
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./js/style.js"></script>
 
     <script src="./js/globais.js"></script>
+    <script src="./js/renders.js"></script>
     <script src="./js/jogo.js"></script>
 
 </body>
+
 </html>

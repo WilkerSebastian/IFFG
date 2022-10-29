@@ -1,0 +1,35 @@
+@font-face{
+
+    font-family: street;
+    src: url("../font/street.ttf");
+
+}
+
+:root{
+
+    --red: rgb(134, 18, 18);
+    --green: rgb(44, 138, 44);
+
+}
+
+.if-green{
+
+    font-family: street;
+    color: var(--green);
+    font-size: 14rem;
+
+}
+
+.fg-red{
+
+    font-family: street;
+    color: var(--red);
+    font-size: 14rem;
+
+}
+
+#onload {
+
+    display: none;
+
+}
