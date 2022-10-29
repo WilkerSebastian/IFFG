@@ -44,6 +44,8 @@ function update() {
 // função responsável pela parte de rendirzação do jogo
 function render() { 
 
-}
+    fundo()
+    objetos.get("chao")?.render("#CD853F")
+    
 
-main()
+}

@@ -24,5 +24,7 @@ function update() {
 }
 // função responsável pela parte de rendirzação do jogo
 function render() {
+    var _a;
+    fundo();
+    (_a = objetos.get("chao")) === null || _a === void 0 ? void 0 : _a.render("#CD853F");
 }
-main();

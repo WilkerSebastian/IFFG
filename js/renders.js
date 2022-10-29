@@ -1,6 +1,6 @@
 "use strict";
 function fundo() {
-    ctx.fillStyle = "white";
+    ctx.fillStyle = "#88DEFA";
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
 }
 function showFPS() {
