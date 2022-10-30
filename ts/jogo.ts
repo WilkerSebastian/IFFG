@@ -1,7 +1,12 @@
 // eventos de teclado
 window.addEventListener("keydown" , (evento) => {
 
-    debug = evento.ctrlKey && evento.key == "k" ? !debug : debug
+    if (evento.ctrlKey && evento.key == "k") {
+     
+        debug = !debug
+        terminal.setVisible(debug)
+        
+    }
 
     if (keys.get(evento.key) != undefined) {
         
