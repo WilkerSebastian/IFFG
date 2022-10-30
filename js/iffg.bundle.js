@@ -106,12 +106,25 @@ class Player extends Objeto {
 }
 class Terminal {
     constructor() {
-        this.terminal = $("#terminal");
+        this.section = $("#terminal");
         this.request = $("#request");
         this.response = $("#response");
+        this.color = "#85E33D";
+        this.setColor();
+        this.request.val("$ ");
+    }
+    setColor(color) {
+        if (color != undefined) {
+            this.request.css("color", color);
+            this.response.css("color", color);
+        }
+        else {
+            this.request.css("color", this.color);
+            this.response.css("color", this.color);
+        }
     }
     setVisible(mostrar) {
-        this.terminal.css("display", mostrar ? "block" : "none");
+        this.section.css("display", mostrar ? "block" : "none");
     }
 }
 const terminal = new Terminal();

@@ -9,6 +9,7 @@
 
     --red: rgb(134, 18, 18);
     --green: rgb(44, 138, 44);
+    --green-life: #40AB37;
 
 }
 
@@ -48,5 +49,5 @@
     top: 10%;
     right: 2%;
     display: none;
-
+    
 }
