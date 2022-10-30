@@ -22,9 +22,6 @@ const ctx = canvas.getContext("2d") as CanvasRenderingContext2D
 
 // lista de objetos e player
 
-//const player1 = new Player()
-//const player2 = new Player()
-
 const objetos = new Map<string , Objeto>()
 
 objetos.set("chao" , new Objeto(0 , HEIGHT - 75, WIDTH ,75 , true))
@@ -38,23 +35,19 @@ const imagens = {
 
 // telcas keys/arrows
 
-const keys = {
+const keys = new Map<string , boolean>()
 
-    "a": false,
-    "d": false,
-    "w": false,
-    "s": false
+keys.set("a" , false)
+keys.set("d" , false)
+keys.set("w" , false)
+keys.set("s" , false)
 
-}
+const arrows = new Map<string , boolean>()
 
-const arrows = {
-
-    "ArrowLeft": false,
-    "ArrowRight": false,
-    "ArrowUp": false,
-    "ArrowDown": false
-
-}
+arrows.set("ArrowLeft" , false)
+arrows.set("ArrowRight" , false)
+arrows.set("ArrowUp" , false)
+arrows.set("ArrowDown" , false)
 
 // tela carrgamento
 
@@ -71,8 +64,11 @@ function load() {
     if (carregamento >= 100) {
     
         clearInterval(id)
+
         $("#load").css("display" , "none")
         $("#onload").css("display" , "block")
+
+        run = true
         window.requestAnimationFrame(main)
 
     }
@@ -80,3 +76,10 @@ function load() {
 }
 
 let id = setInterval(() => {load()} , 1)
+
+// variaveis de depuração
+
+let debug = false
+
+let debugTecla = 'nenhuma'
+let debugArrow = 'nenhuma'

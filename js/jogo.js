@@ -1,7 +1,31 @@
 "use strict";
+// eventos de teclado
+window.addEventListener("keydown", (evento) => {
+    debug = evento.ctrlKey && evento.key == "k" ? !debug : debug;
+    if (keys.get(evento.key) != undefined) {
+        debugTecla = evento.key;
+        keys.set(evento.key, true);
+    }
+    if (arrows.get(evento.key) != undefined) {
+        debugArrow = evento.key;
+        arrows.set(evento.key, true);
+    }
+});
+window.addEventListener("keyup", (evento) => {
+    if (keys.get(evento.key) != undefined) {
+        debugTecla = "nenhuma";
+        keys.set(evento.key, false);
+    }
+    if (arrows.get(evento.key) != undefined) {
+        debugArrow = "nenhuma";
+        arrows.set(evento.key, false);
+    }
+});
+// players de declaraçãp
+const player1 = new Player(200, HEIGHT - 225, 50, 150);
+const player2 = new Player(WIDTH - 150, HEIGHT - 225, 50, 150, true);
 // função padrão
 function main() {
-    run = !run;
     if (run) {
         loop();
     }
@@ -21,10 +45,18 @@ function loop() {
 }
 // função responsável pela parte lógica do jogo
 function update() {
+    player1.update();
+    player2.update();
 }
 // função responsável pela parte de rendirzação do jogo
 function render() {
     var _a;
     fundo();
     (_a = objetos.get("chao")) === null || _a === void 0 ? void 0 : _a.render("#CD853F");
+    player1.render("red");
+    player2.render("blue");
+    if (debug) {
+        showFPS();
+        showKeys();
+    }
 }
