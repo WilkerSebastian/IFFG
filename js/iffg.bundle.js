@@ -39,13 +39,16 @@ class Objeto {
     }
 }
 class Player extends Objeto {
-    constructor(x, y, width, height, direita) {
+    constructor(x, y, width, height, nome, direita) {
         super(x, y, width, height, true);
-        this.gravidade = 0.8;
-        this.speed = 5;
-        this.forcaDoPulo = 23;
+        this.gravidade = 0.8 * scale;
+        this.speed = 5 * scale;
+        this.forcaDoPulo = 23 * scale;
         this.direita = direita !== null && direita !== void 0 ? direita : false;
         this.pulou = false;
+        this.nome = nome;
+        this.life = 100;
+        this.maxLife = 100;
     }
     movimento() {
         if (this.direita) {
@@ -95,12 +98,21 @@ class Player extends Objeto {
     render(cor) {
         ctx.fillStyle = cor;
         ctx.fillRect(this.x, this.y, this.width, this.height);
+        if (this.direita) {
+        }
+        else {
+            ctx.fillStyle = "#BF3017";
+            ctx.fillRect(0, 9, this.maxLife * scale, 50 * scale);
+            ctx.fillStyle = "#2ABF77";
+            ctx.fillRect(0, 0, this.life * scale, 50 * scale);
+        }
         if (debug) {
-            ctx.font = "20px ARIAL";
-            ctx.fillText("X: " + this.x, this.x, this.y - 100);
-            ctx.fillText("Y: " + this.x, this.x, this.y - 80);
-            ctx.fillText("velocidade: " + this.speed, this.x - 25, this.y - 60);
-            ctx.fillText(`pulou: ${this.pulou ? "verdadeiro" : "falso"}`, this.x - 25, this.y - 40);
+            ctx.font = `${sizeFont}px ARIAL`;
+            ctx.fillText("vida: " + this.life, this.x, this.y - (6 * sizeFont));
+            ctx.fillText("X: " + this.x.toFixed(0), this.x, this.y - (5 * sizeFont));
+            ctx.fillText("Y: " + this.x.toFixed(0), this.x, this.y - (4 * sizeFont));
+            ctx.fillText("velocidade: " + this.speed.toFixed(0), this.x - 25, this.y - (3 * sizeFont));
+            ctx.fillText(`pulou: ${this.pulou ? "verdadeiro" : "falso"}`, this.x - 25, this.y - (2 * sizeFont));
         }
     }
 }
@@ -111,7 +123,40 @@ class Terminal {
         this.response = $("#response");
         this.color = "#85E33D";
         this.setColor();
+    }
+    commander() {
+        const linha = this.request.val();
+        let resposta = "$ ";
+        let clear = false;
+        switch (true) {
+            case linha.slice(2, 13) == "kill player":
+                const num = Number(linha[14]);
+                let nome;
+                if (num == 1 || num == 2) {
+                    if (num == 1) {
+                        player1.life = 0;
+                        nome = player1.nome;
+                    }
+                    else {
+                        player2.life = 0;
+                        nome = player2.nome;
+                    }
+                    resposta += `player ${nome} foi finalizado!`;
+                }
+                else {
+                    resposta += "index errado!";
+                }
+                break;
+            case linha.slice(2, 5) == "cls":
+                clear = true;
+                break;
+            default:
+                resposta += "command not found!";
+                break;
+        }
+        const concat = this.response.val();
         this.request.val("$ ");
+        this.response.val(clear ? "$ " : concat + resposta + "\n");
     }
     setColor(color) {
         if (color != undefined) {
@@ -128,6 +173,8 @@ class Terminal {
     }
 }
 const terminal = new Terminal();
+terminal.request.on("keydown", (e) => { if (e.key == "Enter")
+    terminal.commander(); });
 const HEIGHT = window.innerHeight;
 const WIDTH = window.innerWidth;
 let run = false;
@@ -137,8 +184,9 @@ const canvas = $("#canvas").get()[0];
 canvas.width = WIDTH;
 canvas.height = HEIGHT;
 const ctx = canvas.getContext("2d");
+const scale = (WIDTH * HEIGHT) / (1360 * 768);
 const objetos = new Map();
-objetos.set("chao", new Objeto(0, HEIGHT - 75, WIDTH, 75, true));
+objetos.set("chao", new Objeto(0, HEIGHT - (75 * scale), WIDTH, (75 * scale), true));
 const imagens = {};
 const keys = new Map();
 keys.set("a", false);
@@ -191,8 +239,8 @@ window.addEventListener("keyup", (evento) => {
         arrows.set(evento.key, false);
     }
 });
-const player1 = new Player(200, HEIGHT - 225, 50, 150);
-const player2 = new Player(WIDTH - 150, HEIGHT - 225, 50, 150, true);
+const player1 = new Player((200 * scale), HEIGHT - (225 * scale), (50 * scale), (150 * scale), "lincoln");
+const player2 = new Player(WIDTH - (150 * scale), HEIGHT - (225 * scale), (50 * scale), (150 * scale), "ferraz", true);
 function main() {
     if (run) {
         loop();
@@ -224,7 +272,7 @@ function render() {
         showKeys();
     }
 }
-const sizeFont = 20;
+const sizeFont = (20 * scale);
 function fundo() {
     ctx.fillStyle = "#88DEFA";
     ctx.fillRect(0, 0, WIDTH, HEIGHT);

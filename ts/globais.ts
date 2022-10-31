@@ -20,11 +20,15 @@ canvas.height = HEIGHT
 
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D
 
+// variavel de escala da tela
+
+const scale = (WIDTH * HEIGHT) / (1360 * 768)
+
 // lista de objetos e player
 
 const objetos = new Map<string , Objeto>()
 
-objetos.set("chao" , new Objeto(0 , HEIGHT - 75, WIDTH ,75 , true))
+objetos.set("chao" , new Objeto(0 , HEIGHT - (75 * scale), WIDTH ,(75 * scale) , true))
 
 // imagens
 

@@ -1,4 +1,4 @@
-const sizeFont = 20
+const sizeFont = (20 * scale)
 
 function fundo() {
 

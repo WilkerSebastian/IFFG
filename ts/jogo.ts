@@ -41,8 +41,8 @@ window.addEventListener("keyup" , (evento) => {
 
 // players de declaraçãp
 
-const player1 = new Player(200 , HEIGHT - 225 , 50 , 150)
-const player2 = new Player(WIDTH - 150 , HEIGHT - 225 , 50 , 150 , true)
+const player1 = new Player((200 * scale) , HEIGHT - (225 * scale) , (50 * scale)  , (150 * scale) , "lincoln")
+const player2 = new Player(WIDTH - (150 * scale) , HEIGHT - (225 * scale) , (50 * scale) , (150 * scale) , "ferraz" , true)
 
 // função padrão
 function main() { 

@@ -5,15 +5,21 @@ class Player extends Objeto {
     forcaDoPulo: number
     direita: boolean
     pulou:boolean
+    nome:string
+    life:number
+    maxLife:number
 
-    constructor(x: number, y: number, width: number, height: number, direita?: boolean) {
+    constructor(x: number, y: number, width: number, height:number,nome:string, direita?: boolean) {
 
         super(x, y, width, height, true)
-        this.gravidade = 0.8
-        this.speed = 5
-        this.forcaDoPulo = 23
+        this.gravidade = 0.8 * scale
+        this.speed = 5 * scale
+        this.forcaDoPulo = 23 * scale
         this.direita = direita ?? false
         this.pulou = false
+        this.nome = nome
+        this.life = 100
+        this.maxLife = 100
 
     }
 
@@ -102,13 +108,26 @@ class Player extends Objeto {
         ctx.fillStyle = cor
         ctx.fillRect(this.x , this.y , this.width , this.height)
 
+        if (this.direita) {
+            
+        } else {
+
+            ctx.fillStyle = "#BF3017"
+            ctx.fillRect(0 , 9, this.maxLife * scale, 50 * scale)
+         
+            ctx.fillStyle = "#2ABF77"
+            ctx.fillRect(0 , 0, this.life * scale, 50 * scale)
+
+        }
+
         if (debug) {
 
-            ctx.font = "20px ARIAL"
-            ctx.fillText("X: " + this.x , this.x , this.y - 100)
-            ctx.fillText("Y: " + this.x , this.x , this.y - 80)
-            ctx.fillText("velocidade: " + this.speed, this.x - 25 , this.y - 60)
-            ctx.fillText(`pulou: ${this.pulou ? "verdadeiro" : "falso"}`, this.x - 25 , this.y - 40)
+            ctx.font = `${sizeFont}px ARIAL`
+            ctx.fillText("vida: " + this.life , this.x , this.y - (6 * sizeFont))
+            ctx.fillText("X: " + this.x.toFixed(0) , this.x , this.y - (5 * sizeFont))
+            ctx.fillText("Y: " + this.x.toFixed(0) , this.x , this.y - (4 * sizeFont))
+            ctx.fillText("velocidade: " + this.speed.toFixed(0), this.x - 25 , this.y - (3 * sizeFont))
+            ctx.fillText(`pulou: ${this.pulou ? "verdadeiro" : "falso"}`, this.x - 25 , this.y - (2 * sizeFont))
             
         }
 
