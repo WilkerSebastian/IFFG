@@ -21,6 +21,17 @@ body {
   justify-content: center;
 }
 
+#barbabranca {
+  display: block;
+}
+#barbanegra {
+  display: none;
+}
+
+#luffy {
+  display: none;
+}
+
 @font-face {
   font-family: street;
   src: url("/public/font/street.ttf");

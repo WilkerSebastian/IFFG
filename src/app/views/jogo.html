@@ -11,28 +11,17 @@
     />
     <title>IFFG - Menu</title>
     <link rel="stylesheet" href="/public/css/menu.css" />
-
-    <!--<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet" />-->
+    <link rel="stylesheet" href="/public/css/grade.css" />
+    <!--<link
+      href="../assets/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    -->
 
     <link rel="stylesheet" href="/bscss/bootstrap.min.css" />
   </head>
   <body>
-    <!--<div class="d-flex justify-content-center">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="titulo"><span>IF</span><span>FG</span></h1>
-      </div>
-      <div>
-        <button id="botao1" type="button" class="btn btn-success btn-lg">
-          Large button
-        </button>
-      </div>
-      <div>
-        <button id="botao2" type="button" class="btn btn-success btn-lg">
-          Large button
-        </button>
-      </div>
-    </div>-->
-    <section>
+    <section id="barbabranca">
       <div class="rapaz">
         <h1 class="titulo">
           <span class="ai">IF</span><span class="pq">FG</span>
@@ -40,22 +29,149 @@
       </div>
       <div>
         <div class="botao1">
-          <a
+          <button
             class="btn btn-success text-warning p-3"
-            href="/views/personagens.html"
+            onclick="mugiwara.visible(true)"
           >
             JOGAR
-          </a>
+          </button>
         </div>
         <div class="botao2">
-          <a class="btn btn-success text-warning p-3" href="/views/volume.html">
+          <button
+            class="btn btn-success text-warning p-3"
+            onclick="teach.visible(true)"
+          >
             CONFIG
-          </a>
+          </button>
         </div>
         <div class="botao3">
           <a class="btn btn-success text-warning p-3" href="/">VOLTAR</a>
         </div>
       </div>
     </section>
+    <section id="barbanegra">
+      <div class="volume">
+        <label for="radio" class="form-label"
+          ><span class="ai">Vol</span><span class="pq">ume:</span></label
+        >
+        <input type="range" class="form-range" min="0" max="100" id="radio" />
+      </div>
+      <div class="botao3">
+        <a
+          class="btn btn-success text-warning p-3"
+          onclick="teach.visible(false)"
+          >VOLTAR</a
+        >
+      </div>
+    </section>
+    <section id="luffy" class="mh">
+      <div class="personagem">
+        <img src="/public/img/ferrazgrademaior.png" id="conteudoItself" />
+      </div>
+      <div>
+        <p class="vs"><span class="v">V</span><span class="s">S</span></p>
+      </div>
+      <div class="personagem2">
+        <img src="/public/img/ferrazgrademaior.png" id="conteudoItself2" />
+      </div>
+
+      <div class="grade">
+        <div class="box" id="boxlindos">
+          <img
+            type="button"
+            onclick="changeImage('ferrazgrademaior.png ', 'conteudoItself')"
+            class="uaumano"
+            id="imgClickAndChange"
+            src="/public/img/flipferrazmini-removebg-preview.png"
+          />
+        </div>
+        <div class="box" id="boxlindos">
+          <img
+            type="button"
+            onclick="aleatorio()"
+            class="uaumano"
+            src="/public/img/interrogacao.png"
+          />
+        </div>
+        <div class="box" id="boxlindos">
+          <img
+            type="button"
+            onclick="changeImage('lincolngrademaior.png' , 'conteudoItself')"
+            class="uaumano"
+            id="imgClickAndChange"
+            src="/public/img/lincolnzeramini-removebg-preview.png"
+          />
+        </div>
+        <div class="box" id="boxlindos">
+          <img class="uaumano" src="/public/img/interrogacao.png" />
+        </div>
+        <div class="box" id="boxlindos">
+          <img
+            type="button"
+            onclick="changeImage()"
+            class="uaumano"
+            id="imgClickAndChange"
+            src="/public/img/heltonzinho-removebg-preview.png"
+          />
+        </div>
+        <div class="box" id="boxlindos">
+          <img class="uaumano" src="/public/img/interrogacao.png" />
+        </div>
+      </div>
+    </section>
+    <section id="shanks">
+      <div class="cenario">
+        <img src="/public/img/ferrazgrademaior.png" id="conteudoItself" />
+      </div>
+      <div class="grade">
+        <div class="box" id="boxlindos">
+          <img
+            type="button"
+            onclick="changeImage('ferrazgrademaior.png ', 'conteudoItself')"
+            class="uaumano"
+            id="imgClickAndChange"
+            src="/public/img/flipferrazmini-removebg-preview.png"
+          />
+        </div>
+        <div class="box" id="boxlindos">
+          <img
+            type="button"
+            onclick="aleatorio()"
+            class="uaumano"
+            src="/public/img/interrogacao.png"
+          />
+        </div>
+        <div class="box" id="boxlindos">
+          <img
+            type="button"
+            onclick="changeImage('lincolngrademaior.png' , 'conteudoItself')"
+            class="uaumano"
+            id="imgClickAndChange"
+            src="/public/img/lincolnzeramini-removebg-preview.png"
+          />
+        </div>
+        <div class="box" id="boxlindos">
+          <img class="uaumano" src="/public/img/interrogacao.png" />
+        </div>
+        <div class="box" id="boxlindos">
+          <img
+            type="button"
+            onclick="changeImage()"
+            class="uaumano"
+            id="imgClickAndChange"
+            src="/public/img/heltonzinho-removebg-preview.png"
+          />
+        </div>
+        <div class="box" id="boxlindos">
+          <img class="uaumano" src="/public/img/interrogacao.png" />
+        </div>
+      </div>
+    </section>
+    <script src="/public/js/index.js"></script>
+    <script src="/public/js/BarbaNegra.js"></script>
+    <script src="/public/js/MonkeyDLuffy.js"></script>
+    <script src="/public/js/onepiece.js"></script>
+    <script src="/public/js/GradePersonagens.js"></script>
+    <script src="/jq/jquery.min.js"></script>
   </body>
 </html>

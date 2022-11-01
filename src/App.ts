@@ -1,7 +1,7 @@
 import express, { json, urlencoded } from "express";
 import router from "./router";
 import { engine } from "express-handlebars";
-import { resolve } from "path"
+import { resolve } from "path";
 
 export default class App {
   server: express.Application;
@@ -24,12 +24,24 @@ export default class App {
     );
 
     this.server.use("/jquery", express.static("./node_modules/jquery/dist"));
-    this.server.use("/bsicon", express.static("./node_modules/bootstrap-icons/font"));
-    this.server.use("/bscss", express.static("./node_modules/bootstrap/dist/css"));
-    this.server.use("/bsjs", express.static("./node_modules/bootstrap/dist/js"));
-    this.server.use("/popperjs", express.static("./node_modules/@popperjs/core/dist/umd"));
+    this.server.use(
+      "/bsicon",
+      express.static("./node_modules/bootstrap-icons/font")
+    );
+    this.server.use(
+      "/bscss",
+      express.static("./node_modules/bootstrap/dist/css")
+    );
+    this.server.use(
+      "/bsjs",
+      express.static("./node_modules/bootstrap/dist/js")
+    );
+    this.server.use("/jq", express.static("./node_modules/jquery/dist"));
+    this.server.use(
+      "/popperjs",
+      express.static("./node_modules/@popperjs/core/dist/umd")
+    );
     this.server.use("/public", express.static(resolve("./src/app/public")));
-    
 
     this.server.use(urlencoded({ extended: true }));
     this.server.use(json());
