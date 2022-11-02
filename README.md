@@ -11,6 +11,14 @@ __Wilker Sebastian Afonso Pereira e Nicolas Almeida Valente__, com a orinteção
 
 Desenvolver um jogo de luta com tema, personagens e ambiente do __Instituto Federal de Mato Grosso do Sul__ para web aplicando todos os conceitos aprendidos dutante as disciplinas de desenvolvimento "WEB 1" e "WEB 2".
 
+## Scripts
+
+**npm i** - para instalar as dependências
+
+**npm run dev** - para iniciar em modo desenvolvimento o servidor
+
+**npm run start** - para iniciar em modo produção o servidor
+
 ## Tecnologias
 
 - Nodejs
@@ -22,5 +30,5 @@ Desenvolver um jogo de luta com tema, personagens e ambiente do __Instituto Fede
 - CSS 
 - BootStrap
 - HandleBars
-- HEROKU
+- RENDER
 - ENV
