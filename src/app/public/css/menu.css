@@ -32,6 +32,10 @@ body {
   display: none;
 }
 
+#shanks {
+  display: none;
+}
+
 @font-face {
   font-family: street;
   src: url("/public/font/street.ttf");
