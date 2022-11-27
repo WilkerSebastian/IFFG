@@ -21,18 +21,18 @@ body {
   justify-content: center;
 }
 
-#barbabranca {
+#iniciojogo {
   display: block;
 }
-#barbanegra {
+#configjogo {
   display: none;
 }
 
-#luffy {
+#gradepersona {
   display: none;
 }
 
-#shanks {
+#gradecenario {
   display: none;
 }
 
