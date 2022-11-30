@@ -74,27 +74,12 @@
   height: auto;
 }
 
-.anao {
-  color: #32a041;
-  font-weight: bold;
-}
-
-.gigante {
-  color: #32a041;
-  font-weight: bold;
-}
-
-.bombado {
-  color: #32a041;
-  font-weight: bold;
-}
-
-.vampira {
-  color: #32a041;
-  font-weight: bold;
-}
-
-.woman {
+.anao,
+.gigante,
+.bombado,
+.vampira,
+.woman,
+.stuart {
   color: #32a041;
   font-weight: bold;
 }
