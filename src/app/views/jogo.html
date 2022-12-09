@@ -103,7 +103,13 @@
           />
         </div>
         <div class="box" id="boxlindos">
-          <img class="uaumano" src="/public/img/interrogacao.png" />
+          <img
+            type="button"
+            onclick="changeImage('lucianogrademaior.png' , 'conteudoItself')"
+            class="uaumano"
+            id="imgClickAndChange"
+            src="/public/img/luciano3-removebg-preview.png"
+          />
         </div>
         <div class="box" id="boxlindos">
           <img
@@ -115,25 +121,39 @@
           />
         </div>
         <div class="box" id="boxlindos">
-          <img class="uaumano" src="/public/img/interrogacao.png" />
-        </div>
-      </div>
-    </section>
-    <section id="gradecenario">
-      <div class="cenario">
-        <img src="/public/img/ferrazgrademaior.png" id="conteudoItself" />
-      </div>
-      <div class="grade">
-        <div class="box" id="boxlindos">
           <img
             type="button"
-            onclick="changeImage('ferrazgrademaior.png ', 'conteudoItself')"
+            onclick="changeImage('sophiagrademaior.png' , 'conteudoItself')"
             class="uaumano"
             id="imgClickAndChange"
-            src="/public/img/flipferrazmini-removebg-preview.png"
+            src="/public/img/sophia-removebg-preview.png"
           />
         </div>
-        <div class="box" id="boxlindos">
+        <button
+          class="btn btn-success text-warning p-3"
+          onclick="gradecenarioo.visible(true)"
+        >
+          PRONTO
+        </button>
+      </div>
+    </section>
+
+    <section id="gradecenario">
+      <div id="limit" class="cemreais">
+        <img src="/public/img/ferrazgrademaior.png" id="cenarioItself" />
+      </div>
+      <div class="gradecen">
+        <div class="boxcen" id="boxlindos">
+          <img
+            type="button"
+            value="Change Background Image"
+            onclick="changeDivImage('BlocoEFrente.jpg', 'cenarioItself')"
+            class="uaumano"
+            id="imgClickAndChange"
+            src="/public/img/BlocoEFrentes.jpg"
+          />
+        </div>
+        <div class="boxcen" id="boxlindos">
           <img
             type="button"
             onclick="aleatorio()"
@@ -141,36 +161,52 @@
             src="/public/img/interrogacao.png"
           />
         </div>
-        <div class="box" id="boxlindos">
+        <div class="boxcen" id="boxlindos">
           <img
             type="button"
-            onclick="changeImage('lincolngrademaior.png' , 'conteudoItself')"
+            value="Change Background Image"
+            onclick="changeDivImage('BlocoELado.jpg', 'cenarioItself')"
             class="uaumano"
             id="imgClickAndChange"
-            src="/public/img/lincolnzeramini-removebg-preview.png"
+            src="/public/img/BlocoELados.jpg"
           />
         </div>
-        <div class="box" id="boxlindos">
-          <img class="uaumano" src="/public/img/interrogacao.png" />
-        </div>
-        <div class="box" id="boxlindos">
+        <div class="boxcen" id="boxlindos">
           <img
             type="button"
-            onclick="changeImage()"
-            class="uaumano"
+            value="Change Background Image"
+            onclick="changeDivImage('BancoDoSUS.jpg', 'cenarioItself')"
             id="imgClickAndChange"
-            src="/public/img/heltonzinho-removebg-preview.png"
+            class="uaumano"
+            src="/public/img/BancoDoSUSs.jpg"
           />
         </div>
-        <div class="box" id="boxlindos">
-          <img class="uaumano" src="/public/img/interrogacao.png" />
+        <div class="boxcen" id="boxlindos">
+          <img
+            type="button"
+            value="Change Background Image"
+            onclick="changeDivImage('CaminhoDasLajes.jpg', 'cenarioItself')"
+            class="uaumano"
+            id="imgClickAndChange"
+            src="/public/img/CaminhoDasLajess.jpg"
+          />
+        </div>
+        <div class="boxcen" id="boxlindos">
+          <img
+            type="button"
+            value="Change Background Image"
+            onclick="changeDivImage('CampoEletrico.jpg', 'cenarioItself')"
+            id="imgClickAndChange"
+            class="uaumano"
+            src="/public/img/CampoEletricos.jpg"
+          />
         </div>
       </div>
     </section>
     <script src="/public/js/index.js"></script>
     <script src="/public/js/ConfigJogo.js"></script>
     <script src="/public/js/GradePersona.js"></script>
-    <!--<script src="/public/js/GradeCenario.js"></script>-->
+    <script src="/public/js/GradeCenario.js"></script>
     <script src="/public/js/esqueci.js"></script>
     <script src="/public/js/GradePersonagens.js"></script>
     <script src="/jq/jquery.min.js"></script>

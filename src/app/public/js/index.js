@@ -27,3 +27,23 @@ function changeImage(arquivo, id) {
 
   imagem.src = `/public/img/${arquivo}`;
 }
+
+/*function changeDivImage() {
+  var imgPath = new String();
+  imgPath = document.getElementById("div1").style.backgroundImage;
+
+  if (imgPath == "url(images/blue.gif)" || imgPath == "") {
+    document.getElementById("div1").style.backgroundImage =
+      "url(images/green.gif)";
+  } else {
+    document.getElementById("div1").style.backgroundImage =
+      "url(images/blue.gif)";
+  }
+}
+*/
+
+function changeDivImage(arquivo, id) {
+  const backimagem = document.getElementById(id);
+
+  backimagem.src = `/public/img/${arquivo}`;
+}
