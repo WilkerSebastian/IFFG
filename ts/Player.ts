@@ -109,14 +109,20 @@ class Player extends Objeto {
         ctx.fillRect(this.x , this.y , this.width , this.height)
 
         if (this.direita) {
-            
+           
+            ctx.fillStyle = "#BF3017"
+            ctx.fillRect(WIDTH - (this.maxLife * scale + (WIDTH / 5)), 0, this.maxLife * scale, 35 * scale)
+         
+            ctx.fillStyle = "#2ABF77"
+            ctx.fillRect(WIDTH - (this.life * scale + (WIDTH / 5)), 0 ,this.life * scale, 35 * scale)
+
         } else {
 
             ctx.fillStyle = "#BF3017"
-            ctx.fillRect(0 , 9, this.maxLife * scale, 50 * scale)
+            ctx.fillRect(0 , 0, this.maxLife * scale + (WIDTH / 5), 35 * scale)
          
             ctx.fillStyle = "#2ABF77"
-            ctx.fillRect(0 , 0, this.life * scale, 50 * scale)
+            ctx.fillRect(0 , 0, this.life * scale + (WIDTH / 5), 35 * scale)
 
         }
 
