@@ -49,6 +49,10 @@ function main() {
 
     if (run) { 
 
+        time = 200
+
+        timeRun = setInterval(() => {time--},1000)
+
         loop() 
 
     }
@@ -57,6 +61,13 @@ function main() {
 
 // função de loop de gameplay
 function loop() { 
+
+    if (time <= 0) {
+
+        time = 0
+        clearInterval(timeRun)
+        
+    }
 
     const now = performance.now(); 
     
@@ -79,10 +90,33 @@ function loop() {
 }
 
 // função responsável pela parte lógica do jogo
-function update() { 
+function update() {
 
     player1.update()
     player2.update()
+
+    if (time == 0) {
+        
+        if (!player1.subita || !player2.subita) {
+
+            subita = true
+            setTimeout(() => subita = false,1500)
+            
+        }
+
+        player1.subita = true
+        player2.subita = true
+
+        player1.morte()
+        player2.morte()
+
+    }
+
+    if (player1.life == 0 || player2.life == 0) {
+        
+        run = false
+
+    }
 
 }
 
@@ -90,10 +124,19 @@ function update() {
 function render() { 
 
     fundo()
+
+    timer()
+
     objetos.get("chao")?.render("#CD853F")
     
     player1.render("red")
     player2.render("blue")
+
+    if(subita) {  
+
+        morteSubita()
+
+    }
 
     if (debug) {
 

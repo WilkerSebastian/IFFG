@@ -81,6 +81,18 @@ function load() {
 
 let id = setInterval(() => {load()} , 1)
 
+// variaveis para round
+
+
+
+let timeRun:NodeJS.Timer
+
+let subita = false
+
+let time = 200
+
+let round = 1
+
 // variaveis de depuração
 
 let debug = false

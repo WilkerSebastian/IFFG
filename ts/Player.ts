@@ -8,6 +8,8 @@ class Player extends Objeto {
     nome:string
     life:number
     maxLife:number
+    subita:boolean
+    rounds:boolean[]
 
     constructor(x: number, y: number, width: number, height:number,nome:string, direita?: boolean) {
 
@@ -18,8 +20,10 @@ class Player extends Objeto {
         this.direita = direita ?? false
         this.pulou = false
         this.nome = nome
+        this.subita = false
         this.life = 100
         this.maxLife = 100
+        this.rounds = [false , false]
 
     }
 
@@ -87,6 +91,16 @@ class Player extends Objeto {
 
     }
 
+    morte() {
+
+        if (this.subita) {
+
+            this.life -= 0.075
+            
+        }
+
+    }
+
     update() {
 
         this.movimento()
@@ -108,26 +122,34 @@ class Player extends Objeto {
         ctx.fillStyle = cor
         ctx.fillRect(this.x , this.y , this.width , this.height)
 
+        ctx.fillStyle = "white"
+        ctx.font = `${sizeFont * 2}px ARIAL`
+
         if (this.direita) {
+
+            ctx.fillText(this.nome , WIDTH - (sizeFont * 6) , sizeFont * 2)
            
             ctx.fillStyle = "#BF3017"
-            ctx.fillRect(WIDTH - (this.maxLife * scale + (WIDTH / 5)), 0, this.maxLife * scale, 35 * scale)
+            ctx.fillRect(WIDTH - (this.maxLife * scale * 4), sizeFont * 3, this.maxLife * scale * 4, 35 * scale)
          
             ctx.fillStyle = "#2ABF77"
-            ctx.fillRect(WIDTH - (this.life * scale + (WIDTH / 5)), 0 ,this.life * scale, 35 * scale)
+            ctx.fillRect(WIDTH - (this.life * scale * 4), sizeFont * 3, this.life * scale * 4, 35 * scale)
 
         } else {
 
+            ctx.fillText(this.nome , sizeFont , sizeFont * 2)
+
             ctx.fillStyle = "#BF3017"
-            ctx.fillRect(0 , 0, this.maxLife * scale + (WIDTH / 5), 35 * scale)
+            ctx.fillRect(0 , sizeFont * 3, this.maxLife * scale * 4, 35 * scale)
          
             ctx.fillStyle = "#2ABF77"
-            ctx.fillRect(0 , 0, this.life * scale + (WIDTH / 5), 35 * scale)
+            ctx.fillRect(0 , sizeFont * 3, this.life * scale * 4, 35 * scale)
 
         }
 
         if (debug) {
 
+            ctx.fillStyle = "white"
             ctx.font = `${sizeFont}px ARIAL`
             ctx.fillText("vida: " + this.life , this.x , this.y - (6 * sizeFont))
             ctx.fillText("X: " + this.x.toFixed(0) , this.x , this.y - (5 * sizeFont))

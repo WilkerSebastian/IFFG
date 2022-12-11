@@ -47,8 +47,10 @@ class Player extends Objeto {
         this.direita = direita !== null && direita !== void 0 ? direita : false;
         this.pulou = false;
         this.nome = nome;
+        this.subita = false;
         this.life = 100;
         this.maxLife = 100;
+        this.rounds = [false, false];
     }
     movimento() {
         if (this.direita) {
@@ -86,6 +88,11 @@ class Player extends Objeto {
             }
         }
     }
+    morte() {
+        if (this.subita) {
+            this.life -= 0.075;
+        }
+    }
     update() {
         this.movimento();
         this.speed += this.gravidade;
@@ -98,19 +105,24 @@ class Player extends Objeto {
     render(cor) {
         ctx.fillStyle = cor;
         ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.fillStyle = "white";
+        ctx.font = `${sizeFont * 2}px ARIAL`;
         if (this.direita) {
+            ctx.fillText(this.nome, WIDTH - (sizeFont * 6), sizeFont * 2);
             ctx.fillStyle = "#BF3017";
-            ctx.fillRect(WIDTH - this.maxLife * scale, 0, this.maxLife * scale, 35 * scale);
+            ctx.fillRect(WIDTH - (this.maxLife * scale * 4), sizeFont * 3, this.maxLife * scale * 4, 35 * scale);
             ctx.fillStyle = "#2ABF77";
-            ctx.fillRect(WIDTH - this.life * scale, 0, this.life * scale, 35 * scale);
+            ctx.fillRect(WIDTH - (this.life * scale * 4), sizeFont * 3, this.life * scale * 4, 35 * scale);
         }
         else {
+            ctx.fillText(this.nome, sizeFont, sizeFont * 2);
             ctx.fillStyle = "#BF3017";
-            ctx.fillRect(0, 0, this.maxLife * scale + (WIDTH / 5), 35 * scale);
+            ctx.fillRect(0, sizeFont * 3, this.maxLife * scale * 4, 35 * scale);
             ctx.fillStyle = "#2ABF77";
-            ctx.fillRect(0, 0, this.life * scale + (WIDTH / 5), 35 * scale);
+            ctx.fillRect(0, sizeFont * 3, this.life * scale * 4, 35 * scale);
         }
         if (debug) {
+            ctx.fillStyle = "white";
             ctx.font = `${sizeFont}px ARIAL`;
             ctx.fillText("vida: " + this.life, this.x, this.y - (6 * sizeFont));
             ctx.fillText("X: " + this.x.toFixed(0), this.x, this.y - (5 * sizeFont));
@@ -153,6 +165,9 @@ class Terminal {
                 break;
             case linha.slice(2, 5) == "cls":
                 clear = true;
+                break;
+            case linha.slice(2, 10) == "time set":
+                time = Number(linha.slice(11));
                 break;
             default:
                 resposta += "command not found!";
@@ -216,6 +231,10 @@ function load() {
     }
 }
 let id = setInterval(() => { load(); }, 1);
+let timeRun;
+let subita = false;
+let time = 200;
+let round = 1;
 let debug = false;
 let debugTecla = 'nenhuma';
 let debugArrow = 'nenhuma';
@@ -247,10 +266,16 @@ const player1 = new Player((200 * scale), HEIGHT - (225 * scale), (50 * scale), 
 const player2 = new Player(WIDTH - (150 * scale), HEIGHT - (225 * scale), (50 * scale), (150 * scale), "ferraz", true);
 function main() {
     if (run) {
+        time = 200;
+        timeRun = setInterval(() => { time--; }, 1000);
         loop();
     }
 }
 function loop() {
+    if (time <= 0) {
+        time = 0;
+        clearInterval(timeRun);
+    }
     const now = performance.now();
     while (times.length > 0 && times[0] <= now - 1000) {
         times.shift();
@@ -264,13 +289,30 @@ function loop() {
 function update() {
     player1.update();
     player2.update();
+    if (time == 0) {
+        if (!player1.subita || !player2.subita) {
+            subita = true;
+            setTimeout(() => subita = false, 1500);
+        }
+        player1.subita = true;
+        player2.subita = true;
+        player1.morte();
+        player2.morte();
+    }
+    if (player1.life == 0 || player2.life == 0) {
+        run = false;
+    }
 }
 function render() {
     var _a;
     fundo();
+    timer();
     (_a = objetos.get("chao")) === null || _a === void 0 ? void 0 : _a.render("#CD853F");
     player1.render("red");
     player2.render("blue");
+    if (subita) {
+        morteSubita();
+    }
     if (debug) {
         showFPS();
         showKeys();
@@ -282,15 +324,25 @@ function fundo() {
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
 }
 function showFPS() {
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "white";
     ctx.font = `${sizeFont}px ARIAL`;
-    ctx.fillText("FPS: " + fps, 50, sizeFont * 4);
+    ctx.fillText("FPS: " + fps, 50, sizeFont * 8);
+}
+function timer() {
+    ctx.fillStyle = "white";
+    ctx.font = `${sizeFont * 3}px ARIAL`;
+    ctx.fillText(time.toString(), WIDTH * 0.45, sizeFont * 4.5);
+}
+function morteSubita() {
+    ctx.fillStyle = "red";
+    ctx.font = `${sizeFont * 3}px ARIAL`;
+    ctx.fillText("MORTE SUBITA!", WIDTH / 3, HEIGHT / 2);
 }
 function showKeys() {
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "white";
     ctx.font = `${sizeFont}px ARIAL`;
-    ctx.fillText("input player1: " + debugTecla, 50, sizeFont * 5);
-    ctx.fillText("input player2: " + debugArrow, 50, sizeFont * 6);
+    ctx.fillText("input player1: " + debugTecla, 50, sizeFont * 9);
+    ctx.fillText("input player2: " + debugArrow, 50, sizeFont * 10);
 }
 $(".h-win").css("height", `${window.innerHeight}px`);
 $(".w-win").css("width", `${window.innerWidth}px`);
