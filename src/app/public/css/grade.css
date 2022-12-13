@@ -14,14 +14,18 @@
   grid-template-rows: 120px 120px;
 }
 
-.box {
+.box,
+.boxcen {
   background-color: transparent;
   border: 3px solid #32a041;
 }
 
-.boxcen {
-  background-color: transparent;
-  border: 3px solid #c8191e;
+.box:hover {
+  border: 3px solid blue;
+}
+
+.boxcen:hover {
+  border: 3px solid blueviolet;
 }
 
 #limit {
