@@ -39,53 +39,88 @@ window.addEventListener("keyup" , (evento) => {
 
 })
 
-// players de declaraçãp
+// players de declaração
 
-const player1 = new Player((200 * scale) , HEIGHT - (225 * scale) , (50 * scale)  , (150 * scale) , "lincoln")
-const player2 = new Player(WIDTH - (150 * scale) , HEIGHT - (225 * scale) , (50 * scale) , (150 * scale) , "ferraz" , true)
+const player1 = new Player((200 * scale) , HEIGHT - (225 * scale) , (50 * scale * 2)  , (150 * scale * 2) , "lincoln")
+const player2 = new Player(WIDTH - (150 * scale) , HEIGHT - (225 * scale) , (50 * scale * 2) , (150 * scale * 2) , "ferraz" , true)
 
 // função padrão
 function main() { 
 
-    if (run) { 
+    state = "loopando"
 
-        time = 200
+    newround = true
 
-        timeRun = setInterval(() => {time--},1000)
+    time = 200
 
-        loop() 
+    timeRun = setInterval(() => {time--},1000)
 
-    }
+    loop() 
 
 }
 
 // função de loop de gameplay
 function loop() { 
 
-    if (time <= 0) {
+    if (state == "loopando") {
 
-        time = 0
-        clearInterval(timeRun)
+        if (time <= 0) {
+
+            time = 0
+            clearInterval(timeRun)
+            
+        }
+
+        const now = performance.now(); 
         
-    }
+        while (times.length > 0 && times[0] <= now - 1000) { 
 
-    const now = performance.now(); 
+            times.shift(); 
+
+        }
+
+        times.push(now); 
+
+        fps = times.length; 
+
+        update() 
+        render() 
     
-    while (times.length > 0 && times[0] <= now - 1000) { 
+        // usando o requesicao de quadro pela taxa de atualização
+        window.requestAnimationFrame(loop)
 
-        times.shift(); 
+    } else if(state == "novo") {
 
-    }
+        vitoria()
 
-    times.push(now); 
+        player1.reset()
+        player2.reset()
 
-    fps = times.length; 
+        setTimeout(() => {
 
-    render() 
-    update() 
+            newround = true
 
-    // usando o requesicao de quadro pela taxa de atualização
-    window.requestAnimationFrame(loop) 
+            time = 200
+            
+            state = "loopando"
+            loop()
+        
+        } , 1500)
+
+    } else if(state == "finalizou") {
+
+        vitoria()
+
+        newround = false
+
+        setTimeout(() => {
+
+            player1.reset(true)
+            player2.reset(true)
+    
+        })
+
+    } 
 
 }
 
@@ -112,9 +147,23 @@ function update() {
 
     }
 
-    if (player1.life == 0 || player2.life == 0) {
+    if (player1.life <= 0) {
         
-        run = false
+        player1.subita = false
+        player2.subita = false
+            
+        player2.rounds++
+        state = player2.rounds == 2 ? "finalizou" : "novo"
+        
+    }
+
+    if (player2.life <= 0) {
+        
+        player1.subita = false
+        player2.subita = false
+
+        player1.rounds++
+        state = player1.rounds == 2 ? "finalizou" : "novo"
 
     }
 
@@ -127,7 +176,13 @@ function render() {
 
     timer()
 
-    objetos.get("chao")?.render("#CD853F")
+    if (newround) {
+        
+        novoRound()
+
+        setTimeout(() => newround = false, 1000)
+
+    }
     
     player1.render("red")
     player2.render("blue")

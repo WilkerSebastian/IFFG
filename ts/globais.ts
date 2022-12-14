@@ -5,7 +5,7 @@ const WIDTH = window.innerWidth
 
 // variável run 
 
-let run = false
+let state = "init"
 
 // variáveis de FPS
 
@@ -32,10 +32,19 @@ objetos.set("chao" , new Objeto(0 , HEIGHT - (75 * scale), WIDTH ,(75 * scale) ,
 
 // imagens
 
-const imagens = {
+function createImg(nome:string) {
 
+    const img = new Image()
+    img.src = nome
+
+    return img
 
 }
+
+const imagens = new Map<string , HTMLImageElement>()
+imagens.set("busao" , createImg("./img/cenarios/busao.png"))
+imagens.set("lincoln" , createImg("./img/sprites/lincoln.png"))
+imagens.set("ferraz" , createImg("./img/sprites/ferraz.png"))
 
 // telcas keys/arrows
 
@@ -72,7 +81,6 @@ function load() {
         $("#load").css("display" , "none")
         $("#onload").css("display" , "block")
 
-        run = true
         window.requestAnimationFrame(main)
 
     }
@@ -83,15 +91,21 @@ let id = setInterval(() => {load()} , 1)
 
 // variaveis para round
 
-
-
 let timeRun:NodeJS.Timer
 
 let subita = false
 
 let time = 200
 
-let round = 1
+let newround = false
+
+// audio uwu
+
+let audios = new Map<string , HTMLAudioElement>()
+
+audios.set("fundo-cenario-1" , new Audio("../audio/fundo-cenario-1.mp3"))
+
+audios.get("fundo-cenario-1")?.play()
 
 // variaveis de depuração
 
