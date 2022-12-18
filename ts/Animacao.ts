@@ -1,67 +1,90 @@
 class Animacao {
 
-    x:number
-    y:number
-    width:number
-    height:number
+    index: number
+    maxIndex: number
+    coeficiente: number
+    pulo:boolean
+    sprite:HTMLImageElement
+    cortes:{x:number,y:number,width:number,height:number}[]
 
-    constructor(x:number , y:number , width:number , height:number) {
+    constructor(cortes:{x:number,y:number,width:number,height:number}[], coeficiente: number) {
 
-        this.x = x
-        this.y = y
-        this.width = width
-        this.height = height
+        this.index = 0
+        this.maxIndex = cortes.length
+        this.coeficiente = coeficiente
+        this.cortes = cortes
+        this.sprite = new Image()
+        this.pulo = false
+
+    }
+
+    dano(nome:string , direcao:boolean) {
+
+
+
+    }
+
+    pular(nome:string) {
+
+        this.pulo = true
+
+        this.sprite.src = `./img/sprite/${nome}/pulo.png`
+
+    }
+
+    especial(nome:string) {
+
+        this.pulo = false
+
+        this.sprite.src = `./img/sprite/`
+
+    }
+
+    defesa() {
+
+        this.pulo = false
+
+    }
+
+    ataque() {
+
+        this.pulo = false
+    }
+
+    default() {
+
+        this.pulo = false
+
+    }
+
+    andar() {
+
+        this.pulo = false
+
+    }
+
+    render(x:number, y:number, width:number, height:number) {
+
+        if (this.cortes.length != 1) {
+         
+            if (this.index > this.maxIndex) {
+
+                this.index = 0
+    
+            } else {
+    
+                this.index += this.coeficiente
+    
+            }
+
+        } 
+
+        const index = Number(this.index.toFixed(0))
+
+        const corte = this.cortes[index]
+
+       // ctx.drawImage(imagem, corte.x, corte.y, corte.width, corte.height, x, y, width, height)
 
     }
 
 }
-
-const animacoes = new Map<string , Animacao[]>()
-
-// lincoln
-
-const andar_direita_l = [
-
-    new Animacao(0 , 0 , 177 , 440),
-    new Animacao(177 , 0 , 177 , 440),
-    new Animacao(177 * 2 , 0 , 177 , 440),
-    new Animacao(177 * 3, 0 , 177 , 440)
-
-]
-
-const andar_esquerda_l = [
-
-    new Animacao(1338 , 0 , 177 , 440),
-    new Animacao(1338 - 177, 0 , 177 , 440),
-    new Animacao(1338 - (177 * 2), 0 , 177 , 440),
-    new Animacao(1338 - (177 * 3), 0 , 177 , 440)
-
-]
-
-animacoes.set("lincoln-andar-esquerda" , andar_esquerda_l)
-animacoes.set("lincoln-andar-direita" , andar_direita_l)
-animacoes.set("lincoln-default-esquerda", [new Animacao(0 , 0 , 177 , 440)])
-animacoes.set("lincoln-default-direita", [new Animacao(1338 , 0 , 177 , 440)])
-
-// ferraz 
-
-const andar_direita_f = [
-
-    new Animacao(0 , 0 , 177 , 440),
-    new Animacao(177 , 0 , 177 , 440),
-    new Animacao(177 * 2 , 0 , 177 , 440),
-    new Animacao(177 * 3, 0 , 177 , 440)
-
-]
-
-const andar_esquerda_f = [
-
-    new Animacao(1338 , 0 , 177 , 440),
-    new Animacao(1338 - 177, 0 , 177 , 440),
-    new Animacao(1338 - (177 * 2), 0 , 177 , 440),
-    new Animacao(1338 - (177 * 3), 0 , 177 , 440)
-
-]
-
-animacoes.set("ferraz-default-esquerda" , [new Animacao(7084 , 348 , 144 , 293)])
-animacoes.set("ferraz-default-direita" , [new Animacao(6 , 10 , 144 , 293)])

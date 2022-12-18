@@ -1,31 +1,48 @@
 "use strict";
 class Animacao {
-    constructor(x, y, width, height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+    constructor(cortes, coeficiente) {
+        this.index = 0;
+        this.maxIndex = cortes.length;
+        this.coeficiente = coeficiente;
+        this.cortes = cortes;
+        this.sprite = new Image();
+        this.pulo = false;
+    }
+    dano(nome, direcao) {
+    }
+    pular(nome) {
+        this.pulo = true;
+        this.sprite.src = `./img/sprite/${nome}/pulo.png`;
+    }
+    especial(nome) {
+        this.pulo = false;
+        this.sprite.src = `./img/sprite/`;
+    }
+    defesa() {
+        this.pulo = false;
+    }
+    ataque() {
+        this.pulo = false;
+    }
+    default() {
+        this.pulo = false;
+    }
+    andar() {
+        this.pulo = false;
+    }
+    render(x, y, width, height) {
+        if (this.cortes.length != 1) {
+            if (this.index > this.maxIndex) {
+                this.index = 0;
+            }
+            else {
+                this.index += this.coeficiente;
+            }
+        }
+        const index = Number(this.index.toFixed(0));
+        const corte = this.cortes[index];
     }
 }
-const animacoes = new Map();
-const andar_direita_l = [
-    new Animacao(0, 0, 177, 440),
-    new Animacao(177, 0, 177, 440),
-    new Animacao(177 * 2, 0, 177, 440),
-    new Animacao(177 * 3, 0, 177, 440)
-];
-const andar_esquerda_l = [
-    new Animacao(1338, 0, 177, 440),
-    new Animacao(1338 - 177, 0, 177, 440),
-    new Animacao(1338 - (177 * 2), 0, 177, 440),
-    new Animacao(1338 - (177 * 3), 0, 177, 440)
-];
-animacoes.set("lincoln-andar-esquerda", andar_esquerda_l);
-animacoes.set("lincoln-andar-direita", andar_direita_l);
-animacoes.set("lincoln-default-esquerda", [new Animacao(0, 0, 177, 440)]);
-animacoes.set("lincoln-default-direita", [new Animacao(1338, 0, 177, 440)]);
-animacoes.set("ferraz-default-esquerda", [new Animacao(7084, 348, 144, 293)]);
-animacoes.set("ferraz-default-direita", [new Animacao(6, 10, 144, 293)]);
 class Objeto {
     constructor(x, y, width, height, collide) {
         this.x = x;
@@ -76,13 +93,11 @@ class Player extends Objeto {
         this.nome = nome;
         this.subita = false;
         this.life = 100;
-        this.indexanimacao = 0;
         this.maxLife = 100;
         this.rounds = 0;
-        this.direcao = this.direita ? "direita" : "esquerda";
-        this.movimentando = false;
-        this.animacao = "default";
-        this.sprite = animacoes.get(`${this.nome}-${this.animacao}-${this.direcao}`)[this.indexanimacao];
+        this.direcao = !this.direita ? "direita" : "esquerda";
+        this.sprite = new Image();
+        this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/default.png`;
     }
     reset(init) {
         if (init) {
@@ -103,21 +118,16 @@ class Player extends Objeto {
         this.pulou = false;
         this.subita = false;
         this.life = 100;
-        this.direcao = this.direita ? "direita" : "esquerda";
-        this.movimentando = false;
-        this.animacao = "default";
-        this.sprite = animacoes.get(`${this.nome}-${this.animacao}-${this.direcao}`)[this.indexanimacao];
+        this.direcao = !this.direita ? "direita" : "esquerda";
     }
     movimento() {
         if (this.direita) {
             if (arrows.get("ArrowLeft")) {
-                this.animacao = "esquerda";
-                this.movimentando = true;
+                this.direcao = "esquerda";
                 this.x -= this.speed;
             }
             if (arrows.get("ArrowRight")) {
-                this.animacao = "direita";
-                this.movimentando = true;
+                this.direcao = "direita";
                 this.x += this.speed;
             }
             if (arrows.get("ArrowUp")) {
@@ -130,20 +140,14 @@ class Player extends Objeto {
                 this.y += this.speed;
             }
             else {
-                this.movimentando = false;
+                this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/default.png`;
             }
         }
         else {
             if (keys.get("a")) {
-                this.direcao = "esquerda";
-                this.animacao = "andar";
-                this.movimentando = true;
                 this.x -= this.speed;
             }
             if (keys.get("d")) {
-                this.direcao = "direita";
-                this.animacao = "andar";
-                this.movimentando = true;
                 this.x += this.speed;
             }
             if (keys.get("w")) {
@@ -155,6 +159,9 @@ class Player extends Objeto {
             if (keys.get("s")) {
                 this.y += this.speed;
             }
+            else {
+                this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/default.png`;
+            }
         }
     }
     morte() {
@@ -164,9 +171,6 @@ class Player extends Objeto {
     }
     update() {
         this.movimento();
-        if (this.movimentando) {
-            this.indexanimacao += 0.20;
-        }
         this.speed += this.gravidade;
         this.y += this.speed;
         if (this.y > objetos.get("chao").height - this.height) {
@@ -224,8 +228,7 @@ class Player extends Objeto {
             ctx.stroke(cir2);
             ctx.fill(cir2);
         }
-        this.sprite = animacoes.get(`${this.nome}-${this.animacao}-${this.direcao}`)[this.indexanimacao];
-        ctx.drawImage(imagens.get(this.nome), this.sprite.x, this.sprite.y, this.sprite.width, this.sprite.height, this.x, this.y, this.width, this.height);
+        ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height);
     }
 }
 class Terminal {

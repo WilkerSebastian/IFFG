@@ -10,11 +10,8 @@ class Player extends Objeto {
     maxLife: number
     subita: boolean
     rounds: number
-    animacao: string
+    sprite:HTMLImageElement
     direcao:string
-    movimentando:boolean
-    sprite:Animacao
-    indexanimacao:number
 
     constructor(x: number, y: number, width: number, height: number, nome: string, direita?: boolean) {
 
@@ -27,13 +24,11 @@ class Player extends Objeto {
         this.nome = nome
         this.subita = false
         this.life = 100
-        this.indexanimacao = 0;
         this.maxLife = 100
         this.rounds = 0
-        this.direcao = this.direita ? "direita" : "esquerda"
-        this.movimentando = false
-        this.animacao = "default"
-        this.sprite = (animacoes.get(`${this.nome}-${this.animacao}-${this.direcao}`) as Animacao[])[this.indexanimacao]
+        this.direcao = !this.direita ? "direita" : "esquerda"
+        this.sprite = new Image()
+        this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/default.png`
 
     }
 
@@ -64,10 +59,7 @@ class Player extends Objeto {
         this.pulou = false
         this.subita = false
         this.life = 100
-        this.direcao = this.direita ? "direita" : "esquerda"
-        this.movimentando = false
-        this.animacao = "default"
-        this.sprite = (animacoes.get(`${this.nome}-${this.animacao}-${this.direcao}`) as Animacao[])[this.indexanimacao]
+        this.direcao = !this.direita ? "direita" : "esquerda"
 
     }
 
@@ -78,15 +70,13 @@ class Player extends Objeto {
 
             if (arrows.get("ArrowLeft")) {
 
-                this.animacao = "esquerda"
-                this.movimentando = true
+                this.direcao = "esquerda"
                 this.x -= this.speed
 
             }
             if (arrows.get("ArrowRight")) {
 
-                this.animacao = "direita"
-                this.movimentando = true
+                this.direcao = "direita"
                 this.x += this.speed
 
             }
@@ -106,7 +96,7 @@ class Player extends Objeto {
 
             } else {
 
-                this.movimentando = false
+                this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/default.png`
 
             }
 
@@ -114,17 +104,11 @@ class Player extends Objeto {
 
             if (keys.get("a")) {
 
-                this.direcao = "esquerda"
-                this.animacao = "andar"
-                this.movimentando = true
                 this.x -= this.speed
 
             }
             if (keys.get("d")) {
 
-                this.direcao = "direita"
-                this.animacao = "andar"
-                this.movimentando = true
                 this.x += this.speed
 
             }
@@ -141,6 +125,11 @@ class Player extends Objeto {
             if (keys.get("s")) {
 
                 this.y += this.speed
+
+            }
+            else {
+
+                this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/default.png`
 
             }
 
@@ -162,12 +151,6 @@ class Player extends Objeto {
     update() {
 
         this.movimento()
-
-        if (this.movimentando) {
-         
-            this.indexanimacao += 0.20
-
-        }
 
         this.speed += this.gravidade
         this.y += this.speed
@@ -256,9 +239,7 @@ class Player extends Objeto {
 
         }
 
-        this.sprite = (animacoes.get(`${this.nome}-${this.animacao}-${this.direcao}`) as Animacao[])[this.indexanimacao]
-
-        ctx.drawImage(imagens.get(this.nome) as HTMLImageElement,this.sprite.x , this.sprite.y,this.sprite.width , this.sprite.height, this.x , this.y , this.width , this.height)
+        ctx.drawImage(this.sprite, this.x , this.y, this.width , this.height)
 
     }
 
