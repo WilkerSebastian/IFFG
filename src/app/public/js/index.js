@@ -42,8 +42,22 @@ function changeImage(arquivo, id) {
 }
 */
 
-function changeDivImage(arquivo, id) {
+/*function changeDivImage(arquivo, id) {
   const backimagem = document.getElementById(id);
 
   backimagem.src = `/public/img/${arquivo}`;
+}*/
+
+function changeDivImage1() {
+  document.querySelector("body").style.background =
+    "url('/public/img/BlocoEFrente.jpg') no-repeat / center center / fixed / cover";
 }
+/*
+function changeDivImage2() {
+  document.querySelector("body").style.background =
+    "url('/public/img/BlocoELado.jpg') center center / cover";
+}
+function changeDivImage3() {
+  document.querySelector("body").style.background =
+    "url('/public/img/Onibus.jpg') center center / cover";
+}*/
