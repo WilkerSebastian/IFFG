@@ -1,0 +1,92 @@
+/*body {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}*/
+
+body {
+  background-image: url("../img/plano_menu.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  /*--bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;*/
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#iniciojogo {
+  display: block;
+}
+#configjogo {
+  background: linear-gradient(135deg, rgb(194, 238, 72) 60%, rgb(64, 190, 248));
+  display: none;
+}
+
+#gradepersona {
+  display: none;
+}
+
+#gradecenario {
+  display: none;
+}
+
+@font-face {
+  font-family: street;
+  src: url("../font/street.ttf");
+}
+
+.titulo {
+  font-size: 100px;
+  color: white;
+  margin-top: 50px;
+  font-family: street;
+}
+
+.ai {
+  color: #32a041;
+  font-family: street;
+}
+
+.pq {
+  color: #c8191e;
+  font-family: street;
+}
+.botao1 {
+  margin-top: 25px;
+  margin-left: 50px;
+}
+
+.botao2 {
+  margin-top: 25px;
+  margin-left: 50px;
+}
+
+.botao3 {
+  margin-top: 25px;
+  margin-left: 50px;
+}
+
+.volume {
+  color: black;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.ligarcheats {
+  color: #32a041;
+  font-weight: bold;
+}
+
+.personagens {
+
+  max-height: 350px;
+
+}
+

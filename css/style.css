@@ -1,0 +1,72 @@
+@font-face{
+
+    font-family: street;
+    src: url("../font/street.ttf");
+
+}
+
+:root{
+
+    --red: rgb(134, 18, 18);
+    --green: rgb(44, 138, 44);
+    --green-life: #40AB37;
+
+}
+
+.if-green{
+
+    font-family: street;
+    color: var(--green);
+    font-size: 14rem;
+
+}
+
+.fg-red{
+
+    font-family: street;
+    color: var(--red);
+    font-size: 14rem;
+
+}
+
+#load {
+
+    background-color: rgb(219, 223, 223);
+
+}
+
+#onload {
+
+    display: none;
+
+}
+
+#jogo {
+
+    display: none;
+
+}
+
+#canvas {
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+}
+
+#terminal {
+
+    position: absolute;
+    top: 14%;
+    right: 2%;
+    display: none;
+    
+}
+
+.mx-35{
+
+    margin-left: 35%;
+    margin-right: 35%;
+
+}

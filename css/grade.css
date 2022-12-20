@@ -1,0 +1,61 @@
+* {
+  box-sizing: border-box;
+}
+
+.grade {
+  width: 75%;
+  padding: 15px;
+  margin-left: 35%;
+  /*position: fixed;
+  bottom: 0;*/
+  display: grid;
+  grid-template-columns: 120px 120px 120px;
+  grid-template-rows: 120px 120px;
+}
+
+.gradecen {
+  position: fixed;
+  right: 35%;
+  bottom: 2%;
+  display: grid;
+  grid-template-columns: 120px 120px 120px;
+  grid-template-rows: 120px 120px;
+}
+
+.box,
+.boxcen {
+  background-color: transparent;
+  border: 3px solid #32a041;
+}
+
+.box:hover {
+  border: 3px solid blue;
+}
+
+.boxcen:hover {
+  border: 3px solid blueviolet;
+}
+
+.uaumano {
+  height: 113.5px;
+}
+
+#boxlindos {
+  transition: transform 0.2s;
+}
+
+#boxlindos:hover {
+  transform: scale(1.1);
+}
+
+.vs {
+  font-size: 15rem;
+  font-family: street;
+  margin-bottom: 150px;
+}
+.v {
+  color: #32a041;
+}
+.s {
+  color: #c8191e;
+}
