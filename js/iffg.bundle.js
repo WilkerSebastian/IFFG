@@ -46,14 +46,14 @@ class Animacao {
 var _a, _b, _c;
 class Audios {
     constructor(musica, efeito, voz) {
-        this.efeito = efeito;
-        this.musica = musica;
-        this.voz = voz;
+        this.efeito = efeito / 100;
+        this.musica = musica / 100;
+        this.voz = voz / 100;
     }
     getVolume() {
-        $("#musica").val(this.musica);
-        $("#efeito").val(this.efeito);
-        $("#voz").val(this.voz);
+        $("#musica").val(this.musica * 100);
+        $("#efeito").val(this.efeito * 100);
+        $("#voz").val(this.voz * 100);
     }
     setVolume() {
         cenarioAudio.volume = this.musica / 100;
@@ -738,10 +738,16 @@ function selecao(nome) {
         player2.nome = nome;
         playerSelecionado.p2 = true;
         setTimeout(cenarioGrade, 2000);
+        const audio = new Audio(`../audio/${nome}/selecao.mp3`);
+        audio.play();
+        audio.volume = master.voz;
     }
     else if (!playerSelecionado.p1) {
         playerSelecionado.p1 = true;
         player1.nome = nome;
+        const audio = new Audio(`../audio/${nome}/selecao.mp3`);
+        audio.play();
+        audio.volume = master.voz;
     }
 }
 function selecaoCenario(path) {

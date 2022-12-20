@@ -6,17 +6,17 @@ class Audios {
 
     constructor(musica:number, efeito:number,voz:number) {
 
-        this.efeito = efeito
-        this.musica = musica
-        this.voz = voz
+        this.efeito = efeito / 100
+        this.musica = musica / 100
+        this.voz = voz / 100
 
     }
 
     getVolume() {
 
-        $("#musica").val(this.musica)
-        $("#efeito").val(this.efeito)
-        $("#voz").val(this.voz)
+        $("#musica").val(this.musica * 100)
+        $("#efeito").val(this.efeito * 100)
+        $("#voz").val(this.voz * 100)
 
     }
 

@@ -116,11 +116,17 @@ function selecao(nome: string) {
         player2.nome = nome
         playerSelecionado.p2 = true
         setTimeout(cenarioGrade, 2000)
+        const audio = new Audio(`../audio/${nome}/selecao.mp3`)
+        audio.play()
+        audio.volume = master.voz
 
     } else if (!playerSelecionado.p1) {
 
         playerSelecionado.p1 = true
         player1.nome = nome
+        const audio = new Audio(`../audio/${nome}/selecao.mp3`)
+        audio.play()
+        audio.volume = master.voz
 
     }
 
