@@ -126,7 +126,7 @@ const background = new Image()
 
 // audio 
 
-const cenarioAudio = new Audio()
+const cenarioAudio = new Audio("../audio/cenarios/fundo-cenario.mp3")
 
 // variaveis de depuração
 

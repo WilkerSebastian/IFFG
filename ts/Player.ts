@@ -94,6 +94,9 @@ class Player extends Objeto {
         this.indexAnimacao = 0
         this.pulou = false
         this.subita = false
+        this.defesa = false
+        this.podeAtacar = true
+        this.ataque = false
         this.life = 100
         this.direcao = !this.direita ? "direita" : "esquerda"
         this.sprite.src = `../img/sprites/${this.nome}/${this.direcao}/default.png`

@@ -1,6 +1,6 @@
 # Instituto Federal Fight Game
 
-<img src="./src/app/public/img/readme-print.png">
+<img src="./img/prints/inicial.png">
 
 ## Sobre
 

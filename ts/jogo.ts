@@ -47,6 +47,9 @@ const player2 = new Player(WIDTH - (150 * scale) , HEIGHT - (225 * scale) , (50 
 // função padrão
 function main() { 
 
+    cenarioAudio.loop = true
+    cenarioAudio.play()
+
     rounds = 1
 
     state = "loopando"
