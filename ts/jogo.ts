@@ -50,6 +50,8 @@ function main() {
     cenarioAudio.loop = true
     cenarioAudio.play()
 
+    master.setVolume()
+
     rounds = 1
 
     state = "loopando"

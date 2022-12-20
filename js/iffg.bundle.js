@@ -56,16 +56,19 @@ class Audios {
         $("#voz").val(this.voz);
     }
     setVolume() {
-        cenarioAudio.volume = this.musica;
+        cenarioAudio.volume = this.musica / 100;
     }
 }
 const master = new Audios(50, 50, 50);
 master.getVolume();
 (_a = document.getElementById("musica")) === null || _a === void 0 ? void 0 : _a.addEventListener("change", () => {
+    master.musica = Number($("#musica").val());
 });
 (_b = document.getElementById("efeito")) === null || _b === void 0 ? void 0 : _b.addEventListener("change", () => {
+    master.efeito = Number($("#efeito").val());
 });
 (_c = document.getElementById("voz")) === null || _c === void 0 ? void 0 : _c.addEventListener("change", () => {
+    master.voz = Number($("#voz").val());
 });
 class Objeto {
     constructor(x, y, width, height, collide) {
@@ -163,6 +166,9 @@ class Player extends Objeto {
         this.indexAnimacao = 0;
         this.pulou = false;
         this.subita = false;
+        this.defesa = false;
+        this.podeAtacar = true;
+        this.ataque = false;
         this.life = 100;
         this.direcao = !this.direita ? "direita" : "esquerda";
         this.sprite.src = `../img/sprites/${this.nome}/${this.direcao}/default.png`;
@@ -532,7 +538,7 @@ let subita = false;
 let time = 200;
 let newround = false;
 const background = new Image();
-const cenarioAudio = new Audio();
+const cenarioAudio = new Audio("../audio/cenarios/fundo-cenario.mp3");
 let debug = false;
 let debugTecla = 'nenhuma';
 let debugArrow = 'nenhuma';
@@ -565,6 +571,9 @@ window.addEventListener("keyup", (evento) => {
 const player1 = new Player((200 * scale), HEIGHT - (225 * scale), (50 * (scale + 0.2) * 2), (150 * (scale + 0.2) * 2), "lincoln", 5);
 const player2 = new Player(WIDTH - (150 * scale), HEIGHT - (225 * scale), (50 * (scale + 0.2) * 2), (150 * (scale + 0.2) * 2), "ferraz", 5, true);
 function main() {
+    cenarioAudio.loop = true;
+    cenarioAudio.play();
+    master.setVolume();
     rounds = 1;
     state = "loopando";
     newround = true;

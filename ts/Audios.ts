@@ -25,7 +25,7 @@ class Audios {
 
         // musica
                 
-        cenarioAudio.volume = this.musica
+        cenarioAudio.volume = this.musica / 100
 
         // efeito
 
@@ -40,17 +40,17 @@ const master = new Audios(50, 50, 50)
 master.getVolume()
 
 document.getElementById("musica")?.addEventListener("change", () => {
-
-
     
+    master.musica = Number($("#musica").val())
+
 })
 document.getElementById("efeito")?.addEventListener("change", () => {
 
-
+    master.efeito = Number($("#efeito").val())
     
 })
 document.getElementById("voz")?.addEventListener("change", () => {
 
-
+    master.voz = Number($("#voz").val())
     
 })
