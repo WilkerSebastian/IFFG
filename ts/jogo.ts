@@ -1,17 +1,17 @@
 // eventos de teclado
 window.addEventListener("keydown" , (evento) => {
 
-    if (evento.ctrlKey && evento.key == "k") {
+    if (evento.ctrlKey && evento.key.toLocaleLowerCase() == "k") {
      
         debug = !debug
         terminal.setVisible(debug)
         
     }
 
-    if (keys.get(evento.key) != undefined) {
+    if (keys.get(evento.key.toLocaleLowerCase()) != undefined) {
         
-        debugTecla = evento.key
-        keys.set(evento.key , true)
+        debugTecla = evento.key.toLocaleLowerCase()
+        keys.set(evento.key.toLocaleLowerCase() , true)
 
     }
     if (arrows.get(evento.key) != undefined) {
@@ -24,10 +24,10 @@ window.addEventListener("keydown" , (evento) => {
 })
 window.addEventListener("keyup" , (evento) => {
 
-    if (keys.get(evento.key) != undefined) {
+    if (keys.get(evento.key.toLocaleLowerCase()) != undefined) {
         
         debugTecla = "nenhuma"
-        keys.set(evento.key , false)
+        keys.set(evento.key.toLocaleLowerCase() , false)
 
     }
     if (arrows.get(evento.key) != undefined) {
@@ -41,8 +41,8 @@ window.addEventListener("keyup" , (evento) => {
 
 // players de declaração
 
-const player1 = new Player((200 * scale) , HEIGHT - (225 * scale) , (50 * scale * 2)  , (150 * scale * 2) , "lincoln")
-const player2 = new Player(WIDTH - (150 * scale) , HEIGHT - (225 * scale) , (50 * scale * 2) , (150 * scale * 2) , "ferraz" , true)
+const player1 = new Player((200 * scale) , HEIGHT - (225 * scale) , (50 * (scale + 0.2) * 2)  , (150 * (scale + 0.2) * 2) , "lincoln", 1)
+const player2 = new Player(WIDTH - (150 * scale) , HEIGHT - (225 * scale) , (50 * (scale + 0.2) * 2) , (150 * (scale + 0.2) * 2) , "ferraz", 1 , true)
 
 // função padrão
 function main() { 
@@ -184,8 +184,8 @@ function render() {
 
     }
     
-    player1.render("red")
-    player2.render("blue")
+    player1.render()
+    player2.render()
 
     if(subita) {  
 

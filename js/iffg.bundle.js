@@ -83,7 +83,7 @@ class Objeto {
     }
 }
 class Player extends Objeto {
-    constructor(x, y, width, height, nome, direita) {
+    constructor(x, y, width, height, nome, dano, direita) {
         super(x, y, width, height, true);
         this.gravidade = 0.8 * scale;
         this.speed = 5 * scale;
@@ -95,9 +95,28 @@ class Player extends Objeto {
         this.life = 100;
         this.maxLife = 100;
         this.rounds = 0;
+        this.indexAnimacao = 0;
+        this.acimaDoChao = false;
+        this.defesa = false;
+        this.podeAtacar = true;
         this.direcao = !this.direita ? "direita" : "esquerda";
         this.sprite = new Image();
         this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/default.png`;
+        this.ataque = false;
+        this.dano = dano;
+        this.setSize(this.sprite.width, this.sprite.height);
+    }
+    setSize(width, height) {
+        switch (this.nome) {
+            case "ferraz":
+                this.width = width;
+                this.height = height;
+                break;
+            case "lincoln":
+                this.width = width / 1.35;
+                this.height = height / 1.35;
+                break;
+        }
     }
     reset(init) {
         if (init) {
@@ -115,51 +134,119 @@ class Player extends Objeto {
             this.width = (50 * scale);
             this.height = (150 * scale);
         }
+        this.acimaDoChao = false;
+        this.indexAnimacao = 0;
         this.pulou = false;
         this.subita = false;
         this.life = 100;
         this.direcao = !this.direita ? "direita" : "esquerda";
+        this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/default.png`;
+        this.setSize(this.sprite.width, this.sprite.height);
+    }
+    frameLimiter(limite) {
+        this.indexAnimacao += 0.16;
+        let index = Number(this.indexAnimacao.toFixed(0));
+        if (!(index < limite)) {
+            this.indexAnimacao = 0;
+            index = 0;
+        }
+        return index;
     }
     movimento() {
         if (this.direita) {
-            if (arrows.get("ArrowLeft")) {
-                this.direcao = "esquerda";
-                this.x -= this.speed;
-            }
-            if (arrows.get("ArrowRight")) {
-                this.direcao = "direita";
-                this.x += this.speed;
-            }
-            if (arrows.get("ArrowUp")) {
-                if (!this.pulou) {
-                    this.pulou = true;
-                    setTimeout(() => this.pulou = false, 2000);
+            if (arrows.get("ArrowDown")) {
+                if (this.acimaDoChao) {
+                    this.y += this.speed;
+                }
+                else {
+                    this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/abaixado.png`;
                 }
             }
-            if (arrows.get("ArrowDown")) {
-                this.y += this.speed;
-            }
             else {
+                if (arrows.get("ArrowLeft")) {
+                    this.direcao = "esquerda";
+                    this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/andar-${this.frameLimiter(4)}.png`;
+                    this.x -= this.speed;
+                }
+                if (arrows.get("ArrowRight")) {
+                    this.direcao = "direita";
+                    this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/andar-${this.frameLimiter(4)}.png`;
+                    this.x += this.speed;
+                }
+                if (arrows.get("ArrowUp")) {
+                    if (!this.pulou) {
+                        this.pulou = true;
+                        setTimeout(() => this.pulou = false, 2000);
+                    }
+                }
+                if (arrows.get("k") && this.podeAtacar) {
+                    this.ataque = true;
+                    setTimeout(() => this.ataque = false, 50);
+                    this.podeAtacar = false;
+                    this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/soco-0.png`;
+                    setTimeout(() => this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/soco-1.png`, 250);
+                    setTimeout(() => this.podeAtacar = true, 1000);
+                }
+                if (arrows.get("p") && this.podeAtacar) {
+                    this.ataque = true;
+                    setTimeout(() => this.ataque = false, 50);
+                    this.podeAtacar = false;
+                    this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/chute-1.png`;
+                    setTimeout(() => this.podeAtacar = true, 1000);
+                }
+            }
+            if (debugArrow == "nenhuma") {
                 this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/default.png`;
             }
         }
         else {
-            if (keys.get("a")) {
-                this.x -= this.speed;
-            }
-            if (keys.get("d")) {
-                this.x += this.speed;
-            }
-            if (keys.get("w")) {
-                if (!this.pulou) {
-                    this.pulou = true;
-                    setTimeout(() => this.pulou = false, 2000);
+            if (keys.get("s")) {
+                if (this.acimaDoChao) {
+                    this.y += this.speed;
+                }
+                else {
+                    this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/abaixado.png`;
                 }
             }
-            if (keys.get("s")) {
-                this.y += this.speed;
+            else if (keys.get("g")) {
+                this.defesa = true;
+                this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/defesa.png`;
             }
             else {
+                this.defesa = false;
+                if (keys.get("a")) {
+                    this.direcao = "esquerda";
+                    this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/andar-${this.frameLimiter(4)}.png`;
+                    this.x -= this.speed;
+                }
+                if (keys.get("d")) {
+                    this.direcao = "direita";
+                    this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/andar-${this.frameLimiter(4)}.png`;
+                    this.x += this.speed;
+                }
+                if (keys.get("w")) {
+                    if (!this.pulou) {
+                        this.pulou = true;
+                        setTimeout(() => this.pulou = false, 2000);
+                    }
+                }
+                if (keys.get("q") && this.podeAtacar) {
+                    this.ataque = true;
+                    setTimeout(() => this.ataque = false, 50);
+                    this.podeAtacar = false;
+                    this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/soco-0.png`;
+                    setTimeout(() => this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/soco-1.png`, 250);
+                    setTimeout(() => this.podeAtacar = true, 1000);
+                }
+                if (keys.get("e") && this.podeAtacar) {
+                    this.ataque = true;
+                    setTimeout(() => this.ataque = false, 50);
+                    this.podeAtacar = false;
+                    this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/chute-1.png`;
+                    setTimeout(() => this.podeAtacar = true, 1000);
+                }
+            }
+            if (debugTecla == "nenhuma") {
                 this.sprite.src = `./img/sprites/${this.nome}/${this.direcao}/default.png`;
             }
         }
@@ -169,25 +256,67 @@ class Player extends Objeto {
             this.life -= 0.075;
         }
     }
+    levaDano(valor) {
+        if (!this.defesa) {
+            this.life -= valor;
+            this.life = this.life < 0 ? 0 : this.life;
+        }
+    }
     update() {
+        let colisor;
         this.movimento();
         this.speed += this.gravidade;
         this.y += this.speed;
+        if (this.direita) {
+            colisor = player1.isCollided(this);
+        }
+        else {
+            colisor = player2.isCollided(this);
+        }
+        if (colisor.collided) {
+            if (this.direita) {
+                player1.levaDano(this.ataque ? this.dano : 0);
+                corDebugP2 = "purple";
+            }
+            else {
+                player2.levaDano(this.ataque ? this.dano : 0);
+                corDebugP1 = "purple";
+            }
+        }
+        else {
+            if (this.direita) {
+                corDebugP2 = "red";
+            }
+            else {
+                corDebugP1 = "blue";
+            }
+        }
+        if (this.x + this.width > WIDTH) {
+            this.x = WIDTH - this.width;
+        }
+        if (this.x + this.width < this.width) {
+            this.x = 0;
+        }
         if (this.y > objetos.get("chao").height - this.height) {
+            this.acimaDoChao = false;
             this.y = objetos.get("chao").y - this.height;
             this.speed = 5;
         }
+        else {
+            this.acimaDoChao = true;
+        }
     }
-    render(cor) {
+    render() {
         if (debug) {
             ctx.fillStyle = "white";
             ctx.font = `${sizeFont}px ARIAL`;
+            ctx.fillText(`atacou: ${this.ataque ? "sim" : "não"}`, this.x, this.y - (7 * sizeFont));
             ctx.fillText("vida: " + this.life, this.x, this.y - (6 * sizeFont));
             ctx.fillText("X: " + this.x.toFixed(0), this.x, this.y - (5 * sizeFont));
             ctx.fillText("Y: " + this.x.toFixed(0), this.x, this.y - (4 * sizeFont));
             ctx.fillText("velocidade: " + this.speed.toFixed(0), this.x - 25, this.y - (3 * sizeFont));
             ctx.fillText(`pulou: ${this.pulou ? "verdadeiro" : "falso"}`, this.x - 25, this.y - (2 * sizeFont));
-            ctx.fillStyle = cor;
+            ctx.fillStyle = this.direita ? corDebugP1 : corDebugP2;
             ctx.fillRect(this.x, this.y, this.width, this.height);
         }
         ctx.fillStyle = "white";
@@ -228,6 +357,7 @@ class Player extends Objeto {
             ctx.stroke(cir2);
             ctx.fill(cir2);
         }
+        this.setSize(this.sprite.width, this.sprite.height);
         ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height);
     }
 }
@@ -268,6 +398,20 @@ class Terminal {
             case linha.slice(2, 10) == "time set":
                 time = Number(linha.slice(11));
                 break;
+            case linha.slice(2, 10) == "life set":
+                const life = Number(linha.slice(11, linha.indexOf(" -")));
+                if (linha.slice(linha.indexOf("p")) == "p1") {
+                    player1.life -= life;
+                    resposta += `${player1.nome} levou de dano ${life}`;
+                }
+                else if (linha.slice(linha.indexOf("p")) == "p2") {
+                    player2.life -= life;
+                    resposta += `${player2.nome} levou de dano ${life}`;
+                }
+                else {
+                    resposta += "not found player";
+                }
+                break;
             default:
                 resposta += "command not found!";
                 break;
@@ -304,6 +448,12 @@ canvas.width = WIDTH;
 canvas.height = HEIGHT;
 const ctx = canvas.getContext("2d");
 const scale = (WIDTH * HEIGHT) / (1360 * 768);
+function saiuDoMundo(x, width) {
+    if (x + width > WIDTH || x + width < 0) {
+        return true;
+    }
+    return false;
+}
 const objetos = new Map();
 objetos.set("chao", new Objeto(0, HEIGHT - (75 * scale), WIDTH, (75 * scale), true));
 function createImg(nome) {
@@ -320,11 +470,16 @@ keys.set("a", false);
 keys.set("d", false);
 keys.set("w", false);
 keys.set("s", false);
+keys.set("q", false);
+keys.set("e", false);
+keys.set("g", false);
 const arrows = new Map();
 arrows.set("ArrowLeft", false);
 arrows.set("ArrowRight", false);
 arrows.set("ArrowUp", false);
 arrows.set("ArrowDown", false);
+arrows.set("k", false);
+arrows.set("p", false);
 let carregamento = 0;
 function load() {
     const barra = $("#barra");
@@ -348,14 +503,16 @@ audios.set("fundo-cenario-1", new Audio("../audio/fundo-cenario-1.mp3"));
 let debug = false;
 let debugTecla = 'nenhuma';
 let debugArrow = 'nenhuma';
+let corDebugP1 = "red";
+let corDebugP2 = "blue";
 window.addEventListener("keydown", (evento) => {
-    if (evento.ctrlKey && evento.key == "k") {
+    if (evento.ctrlKey && evento.key.toLocaleLowerCase() == "k") {
         debug = !debug;
         terminal.setVisible(debug);
     }
-    if (keys.get(evento.key) != undefined) {
-        debugTecla = evento.key;
-        keys.set(evento.key, true);
+    if (keys.get(evento.key.toLocaleLowerCase()) != undefined) {
+        debugTecla = evento.key.toLocaleLowerCase();
+        keys.set(evento.key.toLocaleLowerCase(), true);
     }
     if (arrows.get(evento.key) != undefined) {
         debugArrow = evento.key;
@@ -363,17 +520,17 @@ window.addEventListener("keydown", (evento) => {
     }
 });
 window.addEventListener("keyup", (evento) => {
-    if (keys.get(evento.key) != undefined) {
+    if (keys.get(evento.key.toLocaleLowerCase()) != undefined) {
         debugTecla = "nenhuma";
-        keys.set(evento.key, false);
+        keys.set(evento.key.toLocaleLowerCase(), false);
     }
     if (arrows.get(evento.key) != undefined) {
         debugArrow = "nenhuma";
         arrows.set(evento.key, false);
     }
 });
-const player1 = new Player((200 * scale), HEIGHT - (225 * scale), (50 * scale * 2), (150 * scale * 2), "lincoln");
-const player2 = new Player(WIDTH - (150 * scale), HEIGHT - (225 * scale), (50 * scale * 2), (150 * scale * 2), "ferraz", true);
+const player1 = new Player((200 * scale), HEIGHT - (225 * scale), (50 * (scale + 0.2) * 2), (150 * (scale + 0.2) * 2), "lincoln", 1);
+const player2 = new Player(WIDTH - (150 * scale), HEIGHT - (225 * scale), (50 * (scale + 0.2) * 2), (150 * (scale + 0.2) * 2), "ferraz", 1, true);
 function main() {
     state = "loopando";
     newround = true;
@@ -450,8 +607,8 @@ function render() {
         novoRound();
         setTimeout(() => newround = false, 1000);
     }
-    player1.render("red");
-    player2.render("blue");
+    player1.render();
+    player2.render();
     if (subita) {
         morteSubita();
     }
@@ -471,23 +628,32 @@ function showFPS() {
 }
 function timer() {
     ctx.fillStyle = "white";
+    ctx.strokeStyle = "black";
     ctx.font = `${sizeFont * 3}px ARIAL`;
     ctx.fillText(time.toString(), WIDTH * 0.45, sizeFont * 4.5);
+    ctx.font = `${sizeFont * 3}px ARIAL`;
+    ctx.strokeText(time.toString(), WIDTH * 0.45, sizeFont * 4.5);
 }
 function morteSubita() {
     ctx.fillStyle = "red";
-    ctx.font = `${sizeFont * 3}px ARIAL`;
+    ctx.strokeStyle = "black";
+    ctx.font = `${sizeFont * 5}px street`;
     ctx.fillText("MORTE SUBITA!", WIDTH / 3, HEIGHT / 2);
+    ctx.font = `${sizeFont * 5}px street`;
+    ctx.strokeText("MORTE SUBITA!", WIDTH / 3, HEIGHT / 2);
 }
 function novoRound() {
     const round = player1.rounds + player2.rounds;
     ctx.fillStyle = "white";
-    ctx.font = `${sizeFont * 3}px ARIAL`;
-    ctx.fillText(`ROUND ${round != 0 ? round : 1}!`, WIDTH / 2.2, HEIGHT / 2);
+    ctx.strokeStyle = "black";
+    ctx.font = `${sizeFont * 5}px street`;
+    ctx.fillText(`ROUND ${round != 0 ? round : 1}!`, WIDTH / 2.5, HEIGHT / 2);
+    ctx.font = `${sizeFont * 5}px street`;
+    ctx.strokeText(`ROUND ${round != 0 ? round : 1}!`, WIDTH / 2.5, HEIGHT / 2);
 }
 function vitoria() {
     ctx.fillStyle = "#F2CF27";
-    ctx.font = `${sizeFont * 3}px ARIAL`;
+    ctx.font = `${sizeFont * 3}px street`;
     if (player1.life == 0) {
         ctx.fillText(`${player2.nome.toUpperCase()}${player2.life == player2.maxLife ? " PERFECT" : " "}  WINS!`, WIDTH / 3, HEIGHT / 2);
     }

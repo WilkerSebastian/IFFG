@@ -24,6 +24,21 @@ const ctx = canvas.getContext("2d") as CanvasRenderingContext2D
 
 const scale = (WIDTH * HEIGHT) / (1360 * 768)
 
+// função de verificação
+
+function saiuDoMundo(x:number , width:number) {
+
+    // verificação se saiu do eixo x
+    if (x + width > WIDTH || x + width < 0) {
+        
+        return true
+
+    }
+
+    return false
+
+}
+
 // lista de objetos e player
 
 const objetos = new Map<string , Objeto>()
@@ -54,6 +69,10 @@ keys.set("a" , false)
 keys.set("d" , false)
 keys.set("w" , false)
 keys.set("s" , false)
+keys.set("q" , false)
+keys.set("e" , false)
+keys.set("g" , false)
+
 
 const arrows = new Map<string , boolean>()
 
@@ -61,6 +80,8 @@ arrows.set("ArrowLeft" , false)
 arrows.set("ArrowRight" , false)
 arrows.set("ArrowUp" , false)
 arrows.set("ArrowDown" , false)
+arrows.set("k", false)
+arrows.set("p", false)
 
 // tela carrgamento
 
@@ -113,3 +134,6 @@ let debug = false
 
 let debugTecla = 'nenhuma'
 let debugArrow = 'nenhuma'
+
+let corDebugP1 = "red"
+let corDebugP2 = "blue"

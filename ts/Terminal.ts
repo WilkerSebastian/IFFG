@@ -60,6 +60,30 @@ class Terminal {
                 time = Number(linha.slice(11))
 
                 break;
+            case linha.slice(2, 10) == "life set":
+
+                const life = Number(linha.slice(11 , linha.indexOf(" -")))
+
+                if (linha.slice(linha.indexOf("p")) == "p1") {
+                    
+                    player1.life -= life
+
+                    resposta += `${player1.nome} levou de dano ${life}`
+
+                }
+                else if(linha.slice(linha.indexOf("p")) == "p2") {
+
+                    player2.life -= life
+
+                    resposta += `${player2.nome} levou de dano ${life}`
+
+                } else {
+
+                    resposta += "not found player"
+
+                }
+
+                break;
             default:
 
                 resposta += "command not found!"
